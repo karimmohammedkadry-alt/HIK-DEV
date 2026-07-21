@@ -1,0 +1,776 @@
+/* ==========================================================================
+   HIK Dev - Premium Modern Stylesheet (2026)
+   ========================================================================== */
+
+/* استيراد خط تجاري أنيق يدعم العربية */
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700&display=swap');
+
+:root {
+    /* لوحة ألوان فخمة وهادئة */
+    --primary-color: #bfa15f;       /* ذهبي مطفي فاخر */
+    --secondary-color: #1a1a1a;     /* أسود فحم عميق */
+    --text-dark: #2d2d2d;           /* رمادي غامق للنصوص القابلة للقراءة */
+    --text-muted: #757575;          /* رمادي ناعم للتفاصيل */
+    --bg-light: #fcfbfa;            /* أوف وايت مريح جداً للعين */
+    --bg-white: #ffffff;
+    --card-shadow: 0 10px 30px rgba(0, 0, 0, 0.04); /* ظلال ناعمة جداً غير مزعجة */
+    --hover-shadow: 0 20px 40px rgba(191, 161, 95, 0.1);
+    --transition-smooth: all 0.4s cubic-bezier(0.16, 1, 0.3, 1); /* حركة انسيابية بريميوم */
+}
+
+/* إعدادات عامة ونظيفة */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Cairo', sans-serif;
+    scroll-behavior: smooth;
+}
+
+body {
+    background-color: var(--bg-light);
+    color: var(--text-dark);
+    line-height: 1.7;
+    overflow-x: hidden;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+    transition: var(--transition-smooth);
+}
+
+ul {
+    list-style: none;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+/* ==========================================================================
+   Navigation Bar (الهيدر الفاخر)
+   ========================================================================== */
+header {
+    background-color: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(20px); /* تأثير الزجاج الضبابي الحديث */
+    -webkit-backdrop-filter: blur(20px);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.03);
+}
+
+.navbar {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+}
+
+.logo img {
+    height: 45px; /* حجم الشعار */
+    object-fit: contain;
+    transition: var(--transition-smooth);
+}
+
+.logo img:hover {
+    transform: scale(1.02);
+}
+
+.navbar ul {
+    display: flex;
+    gap: 30px;
+}
+
+.navbar ul li a {
+    font-weight: 500;
+    font-size: 0.95rem;
+    color: var(--text-dark);
+    position: relative;
+    padding: 5px 0;
+}
+
+/* خط تزييني ناعم أسفل الروابط عند التمرير */
+.navbar ul li a::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 0;
+    height: 2px;
+    background-color: var(--primary-color);
+    transition: var(--transition-smooth);
+}
+
+.navbar ul li a:hover::after {
+    width: 100%;
+}
+
+.navbar ul li a:hover {
+    color: var(--primary-color);
+}
+
+/* الأزرار البريميوم */
+.btn {
+    display: inline-block;
+    padding: 12px 28px;
+    border-radius: 50px; /* زوايا دائرية بالكامل لأناقة أكبر */
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition-smooth);
+    border: none;
+    text-align: center;
+}
+
+/* زر "ابدأ الآن" الأساسي */
+.navbar .btn, .hero-buttons .btn:first-child, .cta .btn {
+    background-color: var(--secondary-color);
+    color: #ffffff;
+}
+
+.navbar .btn:hover, .hero-buttons .btn:first-child:hover, .cta .btn:hover {
+    background-color: var(--primary-color);
+    transform: translateY(-3px);
+    box-shadow: 0 10px 20px rgba(191, 161, 95, 0.2);
+}
+
+/* ==========================================================================
+   Hero Section (الواجهة الرئيسية)
+   ========================================================================== */
+.hero {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 80px 20px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    gap: 60px;
+}
+
+.hero-content h1 {
+    font-size: 3rem;
+    font-weight: 700;
+    line-height: 1.4;
+    color: var(--secondary-color);
+    margin-bottom: 25px;
+}
+
+.hero-content p {
+    font-size: 1.1rem;
+    color: var(--text-muted);
+    margin-bottom: 40px;
+    max-width: 90%;
+}
+
+.hero-buttons {
+    display: flex;
+    gap: 20px;
+}
+
+/* زر أعمالنا الشفاف والأنيق */
+.hero-buttons .btn:last-child {
+    background-color: transparent;
+    color: var(--secondary-color);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.hero-buttons .btn:last-child:hover {
+    background-color: rgba(0, 0, 0, 0.02);
+    border-color: var(--secondary-color);
+    transform: translateY(-3px);
+}
+
+.hero-image img {
+    border-radius: 20px;
+    filter: drop-shadow(0 20px 40px rgba(0,0,0,0.06));
+}
+
+/* ==========================================================================
+   Sections Common (العناوين المشتركة للبراند الكبير)
+   ========================================================================== */
+section {
+    padding: 100px 20px;
+}
+
+.section-title {
+    text-align: center;
+    margin-bottom: 60px;
+}
+
+.section-title h2 {
+    font-size: 2.2rem;
+    color: var(--secondary-color);
+    font-weight: 700;
+    margin-bottom: 15px;
+    position: relative;
+    display: inline-block;
+}
+
+.section-title p {
+    color: var(--text-muted);
+    font-size: 1.05rem;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+/* ==========================================================================
+   Statistics & Counters
+   ========================================================================== */
+.statistics, .counter {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 30px;
+    padding: 60px 20px;
+}
+
+.card, .counter-box {
+    background-color: var(--bg-white);
+    padding: 40px 30px;
+    border-radius: 16px;
+    text-align: center;
+    box-shadow: var(--card-shadow);
+    border: 1px solid rgba(0, 0, 0, 0.01);
+    transition: var(--transition-smooth);
+}
+
+.card:hover, .counter-box:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--hover-shadow);
+}
+
+.card h2, .counter-box h1 {
+    font-size: 2.5rem;
+    color: var(--primary-color);
+    font-weight: 700;
+    margin-bottom: 10px;
+}
+
+.card p, .counter-box p {
+    color: var(--text-muted);
+    font-weight: 500;
+    font-size: 0.95rem;
+}
+
+/* ==========================================================================
+   Services Section (الخدمات)
+   ========================================================================== */
+.services-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+}
+
+.service-card {
+    background-color: var(--bg-white);
+    padding: 40px;
+    border-radius: 16px;
+    box-shadow: var(--card-shadow);
+    transition: var(--transition-smooth);
+    border: 1px solid rgba(0, 0, 0, 0.01);
+}
+
+.service-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--hover-shadow);
+}
+
+.service-card i {
+    font-size: 2rem;
+    color: var(--primary-color);
+    margin-bottom: 25px;
+    display: inline-block;
+}
+
+.service-card h3 {
+    font-size: 1.3rem;
+    color: var(--secondary-color);
+    margin-bottom: 15px;
+    font-weight: 600;
+}
+
+.service-card p {
+    color: var(--text-muted);
+    font-size: 0.95rem;
+}
+
+/* ==========================================================================
+   Why Choose Us (لماذا نحن)
+   ========================================================================== */
+.why-us {
+    background-color: #f5f3ef; /* خلفية أغمق قليلاً لكسر الملل */
+}
+
+.why-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 30px;
+}
+
+.why-box {
+    background: transparent;
+    padding: 20px;
+}
+
+.why-box h3 {
+    font-size: 1.25rem;
+    color: var(--secondary-color);
+    margin-bottom: 15px;
+}
+
+.why-box p {
+    color: var(--text-muted);
+    font-size: 0.95rem;
+}
+
+/* ==========================================================================
+   Work Process (طريقة العمل الحرة والحديثة)
+   ========================================================================== */
+.process-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 40px;
+}
+
+.step {
+    position: relative;
+    padding-top: 20px;
+}
+
+.step h1 {
+    font-size: 3.5rem;
+    font-weight: 700;
+    color: rgba(191, 161, 95, 0.15); /* أرقام شفافة خلفية فخمة */
+    position: absolute;
+    top: -20px;
+    right: 0;
+    line-height: 1;
+}
+
+.step h3 {
+    font-size: 1.2rem;
+    color: var(--secondary-color);
+    margin-bottom: 10px;
+    position: relative;
+    z-index: 1;
+}
+
+.step p {
+    color: var(--text-muted);
+    font-size: 0.95rem;
+}
+
+/* ==========================================================================
+   Portfolio Section (أعمالنا)
+   ========================================================================== */
+.portfolio-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 40px;
+}
+
+.project {
+    background-color: var(--bg-white);
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: var(--card-shadow);
+    transition: var(--transition-smooth);
+}
+
+.project:hover {
+    transform: translateY(-8px);
+    box-shadow: var(--hover-shadow);
+}
+
+.project img {
+    width: 100%;
+    height: 240px;
+    object-fit: cover;
+    transition: var(--transition-smooth);
+}
+
+.project:hover img {
+    transform: scale(1.04);
+}
+
+.project h3 {
+    padding: 25px 25px 10px;
+    color: var(--secondary-color);
+}
+
+.project p {
+    padding: 0 25px 25px;
+    color: var(--text-muted);
+    font-size: 0.95rem;
+}
+
+.project button {
+    width: calc(100% - 50px);
+    margin: 0 25px 25px;
+    padding: 12px;
+    background-color: transparent;
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    border-radius: 30px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: var(--transition-smooth);
+}
+
+.project:hover button {
+    background-color: var(--secondary-color);
+    color: #ffffff;
+    border-color: var(--secondary-color);
+}
+
+/* ==========================================================================
+   Pricing Section (الباقات الفخمة)
+   ========================================================================== */
+.pricing-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    align-items: center;
+}
+
+.price-card {
+    background-color: var(--bg-white);
+    padding: 50px 40px;
+    border-radius: 16px;
+    box-shadow: var(--card-shadow);
+    text-align: center;
+    border: 1px solid rgba(0, 0, 0, 0.02);
+    transition: var(--transition-smooth);
+}
+
+/* تمييز الباقة الأكثر طلباً بلمسة ذهبية راقية وبدون مبالغة */
+.price-card.popular {
+    border: 2px solid var(--primary-color);
+    transform: scale(1.03);
+    position: relative;
+}
+
+.price-card h2 {
+    font-size: 1.4rem;
+    color: var(--text-dark);
+    margin-bottom: 15px;
+}
+
+.price-card h1 {
+    font-size: 2.2rem;
+    color: var(--secondary-color);
+    margin-bottom: 30px;
+    font-weight: 700;
+}
+
+.price-card ul {
+    margin-bottom: 35px;
+}
+
+.price-card ul li {
+    padding: 12px 0;
+    color: var(--text-muted);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.03);
+    font-size: 0.95rem;
+}
+
+.price-card ul li:last-child {
+    border-bottom: none;
+}
+
+.price-card button {
+    width: 100%;
+    padding: 14px;
+    border-radius: 50px;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    background-color: transparent;
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition-smooth);
+}
+
+.price-card:hover button, .price-card.popular button {
+    background-color: var(--secondary-color);
+    color: #ffffff;
+    border-color: var(--secondary-color);
+}
+
+.price-card.popular:hover button {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+}
+
+/* ==========================================================================
+   Testimonials (آراء العملاء النظيفة)
+   ========================================================================== */
+.testimonial-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+}
+
+.testimonial {
+    background-color: var(--bg-white);
+    padding: 40px;
+    border-radius: 16px;
+    box-shadow: var(--card-shadow);
+    border-right: 4px solid var(--primary-color); /* شريط جانبي يضيف فخامة للرأي */
+}
+
+.testimonial h3 {
+    font-size: 1.1rem;
+    color: var(--secondary-color);
+    margin-bottom: 15px;
+}
+
+.testimonial p {
+    color: var(--text-muted);
+    font-size: 0.95rem;
+    font-style: italic;
+}
+
+/* ==========================================================================
+   FAQ Section (الأسئلة الشائعة)
+   ========================================================================== */
+.faq-container {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.faq-item {
+    background-color: var(--bg-white);
+    padding: 25px 30px;
+    border-radius: 12px;
+    margin-bottom: 20px;
+    box-shadow: var(--card-shadow);
+}
+
+.faq-item h3 {
+    font-size: 1.1rem;
+    color: var(--secondary-color);
+    margin-bottom: 10px;
+}
+
+.faq-item p {
+    color: var(--text-muted);
+    font-size: 0.95rem;
+}
+
+/* ==========================================================================
+   Contact Section (فورم التواصل الأنيق)
+   ========================================================================== */
+.contact form {
+    max-width: 650px;
+    margin: 0 auto;
+    background-color: var(--bg-white);
+    padding: 50px;
+    border-radius: 20px;
+    box-shadow: var(--card-shadow);
+}
+
+.contact form input, .contact form textarea {
+    width: 100%;
+    padding: 16px 20px;
+    margin-bottom: 20px;
+    border: 1px solid rgba(0, 0, 0, 0.06);
+    background-color: #faf9f6;
+    border-radius: 10px;
+    font-size: 0.95rem;
+    transition: var(--transition-smooth);
+    outline: none;
+}
+
+.contact form input:focus, .contact form textarea:focus {
+    border-color: var(--primary-color);
+    background-color: #ffffff;
+    box-shadow: 0 0 0 4px rgba(191, 161, 95, 0.05);
+}
+
+.contact form button {
+    width: 100%;
+    padding: 16px;
+    background-color: var(--secondary-color);
+    color: #ffffff;
+    border: none;
+    border-radius: 50px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition-smooth);
+}
+
+.contact form button:hover {
+    background-color: var(--primary-color);
+    box-shadow: 0 10px 20px rgba(191, 161, 95, 0.2);
+}
+
+/* ==========================================================================
+   CTA Section (قسم تحفيز العميل الاستراتيجي)
+   ========================================================================== */
+.cta {
+    background-color: var(--secondary-color);
+    color: #ffffff;
+    text-align: center;
+    padding: 100px 20px;
+}
+
+.cta h2 {
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+    font-weight: 700;
+}
+
+.cta p {
+    color: #a5a5a5;
+    margin-bottom: 40px;
+    font-size: 1.1rem;
+}
+
+/* ==========================================================================
+   Footer (التذييل الفخم)
+   ========================================================================== */
+footer {
+    background-color: #111111;
+    color: #ffffff;
+    padding: 80px 20px 30px;
+}
+
+.footer-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 2fr 1fr 1.5fr;
+    gap: 60px;
+    margin-bottom: 50px;
+}
+
+footer .logo img {
+    margin-bottom: 20px;
+}
+
+footer p {
+    color: #8c8c8c;
+    font-size: 0.95rem;
+}
+
+footer h3 {
+    font-size: 1.15rem;
+    color: var(--primary-color);
+    margin-bottom: 25px;
+    font-weight: 600;
+}
+
+footer ul {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+footer ul li a {
+    color: #8c8c8c;
+    font-size: 0.95rem;
+}
+
+footer ul li a:hover {
+    color: var(--primary-color);
+    padding-right: 5px; /* إزاحة خفيفة جمالية عند التمرير باللغة العربية */
+}
+
+footer div:last-child p {
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+footer hr {
+    border: none;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    margin-bottom: 30px;
+}
+
+.copyright {
+    text-align: center;
+    color: #666666 !important;
+    font-size: 0.85rem;
+}
+
+/* ==========================================================================
+   Back to top Button (زر الصعود للأعلى)
+   ========================================================================== */
+#topButton {
+    position: fixed;
+    bottom: 40px;
+    left: 40px; /* بما أن الموقع RTL، يفضل وضعه في اليسار ليترك مساحة القراءة الحرة */
+    width: 50px;
+    height: 50px;
+    background-color: var(--bg-white);
+    color: var(--secondary-color);
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    border-radius: 50%;
+    font-size: 1.2rem;
+    cursor: pointer;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+    transition: var(--transition-smooth);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 999;
+}
+
+#topButton:hover {
+    background-color: var(--primary-color);
+    color: #ffffff;
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(191, 161, 95, 0.3);
+}
+
+/* ==========================================================================
+   Responsive Design (التوافق الفخم مع الهواتف الذكية والأجهزة اللوحية)
+   ========================================================================== */
+@media (max-width: 992px) {
+    .hero {
+        grid-template-columns: 1fr;
+        text-align: center;
+        padding: 40px 20px;
+    }
+    .hero-content p {
+        margin: 0 auto 40px;
+    }
+    .hero-buttons {
+        justify-content: center;
+    }
+    .footer-container {
+        grid-template-columns: 1fr;
+        gap: 40px;
+    }
+}
+
+@media (max-width: 768px) {
+    .navbar ul {
+        display: none; /* يفضل عمل قائمة جانبية أو همبرغر بالـ JS لاحقاً */
+    }
+    .hero-content h1 {
+        font-size: 2.2rem;
+    }
+    section {
+        padding: 60px 20px;
+    }
+}

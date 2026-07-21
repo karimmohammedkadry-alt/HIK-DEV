@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HIK Dev - أسعارنا وعروضنا وسلة المشتريات</title>
+    <link rel="stylesheet" href="style3.css">
+    <style>
+        /* تنسيقات سلة المشتريات والعائم الحصري */
+        .cart-float-btn {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: #38bdf8;
+            color: #000;
+            padding: 12px 20px;
+            border-radius: 50px;
+            font-weight: bold;
+            box-shadow: 0 4px 15px rgba(56, 189, 248, 0.4);
+            cursor: pointer;
+            z-index: 999;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            border: 2px solid #fff;
+            transition: 0.3s;
+        }
+        .cart-float-btn:hover { background: #0284c7; color: #fff; transform: scale(1.05); }
+        .cart-badge {
+            background: #ef4444;
+            color: #fff;
+            padding: 2px 8px;
+            border-radius: 50%;
+            font-size: 14px;
+        }
+
+        /* 🌟 أنيميشن إشعار إضافة منتج (Toast Notification البريميم) */
+        #toast-notification {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%) translateY(-100px);
+            background: linear-gradient(135deg, #0f172a, #1e293b);
+            color: #fff;
+            padding: 15px 25px;
+            border-radius: 12px;
+            border: 2px solid #38bdf8;
+            box-shadow: 0 10px 30px rgba(56, 189, 248, 0.4);
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-family: inherit;
+            font-size: 15px;
+            opacity: 0;
+            transition: transform 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55), opacity 0.5s ease;
+        }
+        #toast-notification.show {
+            transform: translateX(-50%) translateY(0);
+            opacity: 1;
+        }
+        .toast-icon {
+            font-size: 22px;
+            animation: bounce 0.6s infinite alternate;
+        }
+        @keyframes bounce {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(-4px); }
+        }
+
+        /* تنسيق النافذة المنبثقة (Modal) للشراء والدفع */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.7);
+            backdrop-filter: blur(5px);
+            justify-content: center;
+            align-items: center;
+        }
+        .modal-content {
+            background: #0f172a;
+            color: #fff;
+            padding: 30px;
+            border-radius: 20px;
+            width: 90%;
+            max-width: 600px;
+            max-height: 90vh;
+            overflow-y: auto;
+            border: 2px solid #38bdf8;
+            box-shadow: 0 0 25px rgba(56, 189, 248, 0.4);
+            position: relative;
+            animation: modalFadeIn 0.4s ease;
+        }
+        @keyframes modalFadeIn {
+            from { opacity: 0; transform: scale(0.9); }
+            to { opacity: 1; transform: scale(1); }
+        }
+        .close-btn {
+            position: absolute;
+            top: 15px;
+            left: 20px;
+            font-size: 26px;
+            color: #38bdf8;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .close-btn:hover { color: #fff; }
+        .cart-items-list {
+            list-style: none;
+            padding: 0;
+            margin: 15px 0;
+            max-height: 200px;
+            overflow-y: auto;
+            border-top: 1px solid #334155;
+            border-bottom: 1px solid #334155;
+        }
+        .cart-items-list li {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px dashed #1e293b;
+        }
+        .remove-item {
+            color: #ef4444;
+            cursor: pointer;
+            margin-right: 15px;
+            font-size: 13px;
+            transition: 0.2s;
+        }
+        .remove-item:hover { color: #dc2626; }
+        .form-group {
+            margin-bottom: 15px;
+            text-align: right;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: #38bdf8;
+            font-size: 14px;
+        }
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 10px;
+            border-radius: 8px;
+            border: 1px solid #334155;
+            background: #1e293b;
+            color: #fff;
+        }
+        .checkout-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        .checkout-btn {
+            flex: 1;
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            text-align: center;
+            transition: 0.3s;
+        }
+        .checkout-btn:hover { opacity: 0.9; transform: translateY(-2px); }
+        .whatsapp-checkout { background: #25d366; color: #fff; }
+        .insta-checkout { background: #e1306c; color: #fff; }
+        .sheet-checkout { background: #38bdf8; color: #000; }
+
+        .add-to-cart-btn {
+            background: #1e293b;
+            color: #38bdf8;
+            border: 1px solid #38bdf8;
+            padding: 5px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 13px;
+            transition: 0.2s;
+        }
+        .add-to-cart-btn:hover { background: #38bdf8; color: #000; }
+        .price-category-card li {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+            padding-bottom: 5px;
+            border-bottom: 1px dashed rgba(255,255,255,0.1);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- إشعار Toast البريميم المتحرك -->
+    <div id="toast-notification">
+        <span class="toast-icon">✨</span>
+        <div>
+            <strong id="toast-title" style="color: #38bdf8; display: block;">تمت الإضافة بنجاح!</strong>
+            <span id="toast-desc" style="color: #cbd5e1; font-size: 13px;">تم إضافة الخدمة إلى سلة مشترياتك.</span>
+        </div>
+    </div>
+
+    <!-- القائمة العلوية -->
+    <header>
+        <div class="logo">HIK Dev</div>
+        <nav>
+            <ul>
+                <li><a href="index.html" class="nav-btn">الرئيسية</a></li>
+                <li><a href="services.html" class="nav-btn">الخدمات</a></li>
+                <li><a href="pricing.html" class="nav-btn active-page">الباقات والأسعار</a></li>
+                <li><a href="store.html" class="nav-btn">المتجر</a></li>
+                <li><a href="about.html" class="nav-btn">من نحن</a></li>
+                <li><a href="cv.html" class="nav-btn">تواصل معنا</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- زر سلة المشتريات العائم -->
+    <div class="cart-float-btn" onclick="openCartModal()">
+        🛒 سلة المشتريات <span class="cart-badge" id="cartCount">0</span>
+    </div>
+
+    <!-- عنوان قسم الباقات -->
+    <section class="hero">
+        <h1>باقات الأسعار والخدمات</h1>
+        <p>اختر الباقة المناسبة لمشروعك، أو أضف الخدمات المنفصلة لسلتك الخاصة.</p>
+    </section>
+
+    <!-- قسم عروض التوفير الساخنة -->
+    <section class="offers-section">
+        <h2 class="section-title">🔥 عروض التوفير الحصرية (مفصلة لفترة محدودة)</h2>
+        <div class="offers-container">
+            
+            <div class="offer-card">
+                <div class="offer-badge">وفر 500 جنيه</div>
+                <h3>عرض المتجر المتكامل السريع</h3>
+                <p class="offer-desc">صفحة متجر + سلة مشتريات + إضافة أول 100 منتج</p>
+                <div class="offer-price">
+                    <span class="old-price">3200 جنيه</span>
+                    <span class="new-price">2700 جنيه</span>
+                </div>
+                <button class="pricing-btn" onclick="addToCart('عرض المتجر المتكامل السريع', 2700)">أضف للسلة</button>
+            </div>
+
+            <div class="offer-card featured-offer">
+                <div class="offer-badge hot">الأكثر طلباً 🔥</div>
+                <h3>عرض التواجد الرقمي الشامل</h3>
+                <p class="offer-desc">موقع Basic (5 صفحات) + تصميم لوجو + هوية بصرية بسيطة</p>
+                <div class="offer-price">
+                    <span class="old-price">5200 جنيه</span>
+                    <span class="new-price">4200 جنيه</span>
+                </div>
+                <button class="pricing-btn" onclick="addToCart('عرض التواجد الرقمي الشامل', 4200)">أضف للسلة</button>
+            </div>
+
+            <div class="offer-card">
+                <div class="offer-badge">وفر 1000 جنيه</div>
+                <h3>عرض الهيمنة وتطبيقات الذكية</h3>
+                <p class="offer-desc">تطبيق أندرويد وويندوز بنفس المشروع + رفع استضافة + ربط دومين</p>
+                <div class="offer-price">
+                    <span class="old-price">5800 جنيه</span>
+                    <span class="new-price">4800 جنيه</span>
+                </div>
+                <button class="pricing-btn" onclick="addToCart('عرض الهيمنة وتطبيقات الذكية', 4800)">أضف للسلة</button>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- حاوية الباقات الأساسية الثلاثة -->
+    <section class="pricing-container">
+        
+        <div class="pricing-card">
+            <h3>Basic</h3>
+            <div class="price">3000 جنيه</div>
+            <ul class="features">
+                <li>موقع تعريفي</li>
+                <li>حتى 5 صفحات</li>
+                <li>متجاوب مع جميع الأجهزة</li>
+                <li>صفحة تواصل</li>
+                <li>ربط واتساب</li>
+            </ul>
+            <button class="pricing-btn" onclick="addToCart('باقة Basic', 3000)">اختر الباقة</button>
+        </div>
+
+        <div class="pricing-card featured">
+            <div class="badge">أفضل قيمة ⭐</div>
+            <h3>Standard</h3>
+            <div class="price">7000 جنيه</div>
+            <ul class="features">
+                <li>موقع + متجر</li>
+                <li>لوحة تحكم</li>
+                <li>حتى 100 منتج</li>
+                <li>بحث وفلترة</li>
+                <li>سلة مشتريات</li>
+            </ul>
+            <button class="pricing-btn" onclick="addToCart('باقة Standard', 7000)">اختر الباقة</button>
+        </div>
+
+        <div class="pricing-card">
+            <h3>Premium</h3>
+            <div class="price">12000 جنيه</div>
+            <ul class="features">
+                <li>موقع احترافي</li>
+                <li>متجر إلكتروني</li>
+                <li>Dashboard</li>
+                <li>تطبيق أندرويد وويندوز</li>
+                <li>ربط الدفع الإلكتروني</li>
+                <li>لوحة موظف + لوحة عميل</li>
+            </ul>
+            <button class="pricing-btn" onclick="addToCart('باقة Premium', 12000)">اختر الباقة</button>
+        </div>
+
+    </section>
+
+    <!-- قسم قائمة الأسعار التفصيلية -->
+    <section class="detailed-prices-section">
+        <h2 class="section-title">🛠️ أسعار الخدمات المنفصلة بالتفصيل</h2>
+        <p style="text-align: center; color: #94a3b8; margin-bottom: 40px;">يمكنك بناء باقتك الخاصة بإضافة أي من الخدمات التالية لسلتك</p>
+
+        <div class="pricing-tables-grid">
+            
+            <div class="price-category-card">
+                <h3>🌐 صفحات الموقع</h3>
+                <ul>
+                    <li><span>صفحة عادية (من نحن/تواصل...) <strong>300 ج</strong></span> <button class="add-to-cart-btn" onclick="addToCart('صفحة عادية', 300)">إضافة</button></li>
+                    <li><span>الصفحة الرئيسية <strong>700 ج</strong></span> <button class="add-to-cart-btn" onclick="addToCart('الصفحة الرئيسية', 700)">إضافة</button></li>
+                    <li><span>صفحة تفاعلية <strong>500 ج</strong></span> <button class="add-to-cart-btn" onclick="addToCart('صفحة تفاعلية', 500)">إضافة</button></li>
+                    <li><span>صفحة متجر <strong>1200 ج</strong></span> <button class="add-to-cart-btn" onclick="addToCart('صفحة متجر', 1200)">إضافة</button></li>
+                    <li><span>صفحة تسجيل دخول <strong>500 ج</strong></span> <button class="add-to-cart-btn" onclick="addToCart('صفحة تسجيل دخول', 500)">إضافة</button></li>
+                    <li><span>صفحة إنشاء حساب <strong>500 ج</strong></span> <button class="add-to-cart-btn" onclick="addToCart('صفحة إنشاء حساب', 500)">إضافة</button></li>
+                </ul>
+            </div>
+
+            <div class="price-category-card">
+                <h3>🖥️ لوحات التحكم</h3>
+                <ul>
+                    <li><span>Dashboard أدمن <strong>1500 ج</strong></span> <button class="add-to-cart-btn" onclick="addToCart('Dashboard أدمن', 1500)">إضافة</button></li>
+                    <li><span>لوحة الموظف <strong>1000 ج</strong></span> <button class="add-to-cart-btn" onclick="addToCart('لوحة الموظف', 1000)">إضافة</button></li>
+                    <li><span>لوحة العميل <strong>800 ج</strong></span> <button class="add-to-cart-btn" onclick="addToCart('لوحة العميل', 800)">إضافة</button></li>
+                </ul>
+            </div>
+
+            <div class="price-category-card">
+                <h3>⚙️ الأنظمة والبرمجيات</h3>
+                <ul>
+                    <li><span>نظام الطلبات <strong>1000 ج</strong></span> <button class="add-to-cart-btn" onclick="addToCart('نظام الطلبات', 1000)">إضافة</button></li>
+                    <li><span>نظام الحجز <strong>1000 ج</strong></span> <button class="add-to-cart-btn" onclick="addToCart('نظام الحجز', 1000)">إضافة</button></li>
+                    <li><span>سلة المشتريات <strong>1000 ج</strong></span> <button class="add-to-cart-btn" onclick="addToCart('سلة المشتريات البرمجية', 1000)">إضافة</button></li>
+                    <li><span>البحث داخل الموقع <strong>500 ج</strong></span> <button class="add-to-cart-btn" onclick="addToCart('البحث داخل الموقع', 500)">إضافة</button></li>
+                    <li><span>فلترة المنتجات <strong>500 ج</strong></span> <button class="add-to-cart-btn" onclick="addToCart('فلترة المنتجات', 500)">إضافة</button></li>
+                </ul>
+            </div>
+
+            <div class="price-category-card">
+                <h3>🔗 الربط والشبكات</h3>
+                <ul>
+                    <li><span>ربط واتساب/تواصل <strong>200 ج</strong></span> <button class="add-to-cart-btn" onclick="addToCart('ربط وسائل التواصل', 200)">إضافة</button></li>
+                    <li><span>خرائط Google <strong>200 ج</strong></span> <button class="add-to-cart-btn" onclick="addToCart('ربط خرائط Google', 200)">إضافة</button></li>
+                    <li><span>فورم تواصل <strong>300 ج</strong></span> <button class="add-to-cart-btn" onclick="addToCart('فورم تواصل', 300)">إضافة</button></li>
+                    <li><span>QR Code <strong>200 ج</strong></span> <button class="add-to-cart-btn" onclick="addToCart('QR Code', 200)">إضافة</button></li>
+                </ul>
+            </div>
+
+            <div class="price-category-card">
+                <h3>💳 الدفع والمنتجات</h3>
+                <ul>
+                    <li><span>بوابة دفع (Paymob...) <strong>2000 ج</strong></span> <button class="add-to-cart-btn" onclick="addToCart('ربط بوابة دفع', 2000)">إضافة</button></li>
+                    <li><span>إضافة أول 100 منتج <strong>1000 ج</strong></span> <button class="add-to-cart-btn" onclick="addToCart('إضافة أول 100 منتج', 1000)">إضافة</button></li>
+                    <li><span>100 منتج إضافية <strong>500 ج</strong></span> <button class="add-to-cart-btn" onclick="addToCart('100 منتج إضافية', 500)">إضافة</button></li>
+                </ul>
+            </div>
+
+            <div class="price-category-card">
+                <h3>📱 التطبيقات والتصميم</h3>
+                <ul>
+                    <li><span>تصميم لوجو <strong>700 ج</strong></span> <button class="add-to-cart-btn" onclick="addToCart('تصميم لوجو', 700)">إضافة</button></li>
+                    <li><span>هوية بصرية بسيطة <strong>1500 ج</strong></span> <button class="add-to-cart-btn" onclick="addToCart('هوية بصرية بسيطة', 1500)">إضافة</button></li>
+                    <li><span>تطبيق أندرويد/ويندوز <strong>3000 ج</strong></span> <button class="add-to-cart-btn" onclick="addToCart('تطبيق أندرويد أو ويندوز', 3000)">إضافة</button></li>
+                    <li><span>أندرويد وويندوز معاً <strong>5000 ج</strong></span> <button class="add-to-cart-btn" onclick="addToCart('تطبيق أندرويد وويندوز معاً', 5000)">إضافة</button></li>
+                </ul>
+            </div>
+
+            <div class="price-category-card full-width-card">
+                <h3>🚀 خدمات إضافية وصيانة</h3>
+                <div style="display:flex; justify-content:space-between; align-items:center; width:100%;">
+                    <span>رفع الموقع على الاستضافة <strong>500 جنيه</strong></span>
+                    <button class="add-to-cart-btn" onclick="addToCart('رفع الموقع على الاستضافة', 500)">إضافة</button>
+                </div>
+                <div style="display:flex; justify-content:space-between; align-items:center; width:100%; margin-top:10px;">
+                    <span>ربط الدومين <strong>300 جنيه</strong></span>
+                    <button class="add-to-cart-btn" onclick="addToCart('ربط الدومين', 300)">إضافة</button>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- نافذة سلة المشتريات والدفع -->
+    <div id="cartModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeCartModal()">&times;</span>
+            <h3 style="color: #38bdf8; margin-bottom: 15px;">🛒 تفاصيل سلة مشترياتك وباقاتك</h3>
+            
+            <ul class="cart-items-list" id="cartItemsList">
+                <!-- العناصر ستُضاف هنا بالجافاسكريبت -->
+            </ul>
+
+            <div style="display: flex; justify-content: space-between; font-size: 18px; font-weight: bold; margin-bottom: 20px;">
+                <span>إجمالي السعر الإجمالي:</span>
+                <span id="totalPrice" style="color: #38bdf8;">0 جنيه</span>
+            </div>
+
+            <div class="form-group">
+                <label>الاسم بالكامل:</label>
+                <input type="text" id="clientName" placeholder="اكتب اسمك هنا...">
+            </div>
+
+            <div class="form-group">
+                <label>رقم الهاتف (واتساب):</label>
+                <input type="text" id="clientPhone" placeholder="رقم الهاتف الخاص بك...">
+            </div>
+
+            <div class="form-group">
+                <label>طريقة الدفع والتأكيد المختارة:</label>
+                <select id="paymentMethod">
+                    <option value="تحويل بنكي / فودافون كاش">فودافون كاش / تحويل بنكي</option>
+                    <option value="بوابة دفع إلكتروني">بوابة دفع إلكتروني (Visa/Mastercard)</option>
+                    <option value="اتفاق مباشر مع الدعم">اتفاق مباشر ومقابلة</option>
+                </select>
+            </div>
+
+            <div class="checkout-actions">
+                <button class="checkout-btn whatsapp-checkout" onclick="checkoutWhatsApp()">إرسال عبر واتساب 📱</button>
+                <button class="checkout-btn insta-checkout" onclick="checkoutInstagram()">إرسال عبر إنستجرام 📸</button>
+                <button class="checkout-btn sheet-checkout" onclick="checkoutSheet()">تأكيد وإرسال 🚀</button>
+            </div>
+        </div>
+    </div>
+
+    <section class="notes-section">
+        <div class="notes-card">
+            <h4>💡 تنويهات وملاحظات هامة:</h4>
+            <ul>
+                <li>الأسعار قابلة للتعديل حسب حجم ومتطلبات المشروع الدقيقة.</li>
+                <li>يبدأ العمل والتنفيذ مباشرة بعد استلاستلام العربون المتفق عليه.</li>
+                <li>رسوم بوابات الدفع، الاستضافة، والدومين يتحملها العميل.</li>
+            </ul>
+        </div>
+    </section>
+
+    <footer>
+        <p>جميع الحقوق محفوظة &copy; 2026 | HIK Dev</p>
+    </footer>
+
+    <!-- سكريبت البرمجة التفاعلية والأنيميشن -->
+    <script>
+        let cart = [];
+
+        // دالة إظهار الـ Toast البريميم المتحرك
+        function showToast(serviceName) {
+            let toast = document.getElementById('toast-notification');
+            let desc = document.getElementById('toast-desc');
+            
+            desc.innerText = `تمت إضافة (${serviceName}) إلى السلة بنجاح.`;
+            
+            toast.classList.add('show');
+            
+            // إخفاء الإشعار تلقائياً بعد 3 ثوانٍ
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3000);
+        }
+
+        function addToCart(name, price) {
+            cart.push({ name: name, price: price });
+            updateCartUI();
+            showToast(name); // تشغيل الأنيميشن البريميم بدلا من alert
+        }
+
+        function removeFromCart(index) {
+            cart.splice(index, 1);
+            updateCartUI();
+        }
+
+        function updateCartUI() {
+            document.getElementById('cartCount').innerText = cart.length;
+            let listEl = document.getElementById('cartItemsList');
+            let totalEl = document.getElementById('totalPrice');
+            
+            listEl.innerHTML = '';
+            let total = 0;
+
+            if (cart.length === 0) {
+                listEl.innerHTML = '<li style="text-align: center; color: #94a3b8; padding: 15px;">السلة فارغة حالياً... اختر باقة أو خدمة</li>';
+            } else {
+                cart.forEach((item, index) => {
+                    total += item.price;
+                    listEl.innerHTML += `
+                        <li>
+                            <span>${item.name} - <strong>${item.price} ج</strong></span>
+                            <span class="remove-item" onclick="removeFromCart(${index})">حذف ❌</span>
+                        </li>
+                    `;
+                });
+            }
+            totalEl.innerText = total + " جنيه";
+        }
+
+        function openCartModal() {
+            document.getElementById('cartModal').style.display = 'flex';
+        }
+
+        function closeCartModal() {
+            document.getElementById('cartModal').style.display = 'none';
+        }
+
+        const whatsappNumber = "20125093884"; 
+        const instagramUsername = "hikdev_official";
+
+        function getOrderDetailsText() {
+            let name = document.getElementById('clientName').value || "غير محدد";
+            let phone = document.getElementById('clientPhone').value || "غير محدد";
+            let payment = document.getElementById('paymentMethod').value;
+            
+            let itemsText = cart.map(i => `- ${i.name} (${i.price} ج)`).join('\n');
+            let total = cart.reduce((sum, i) => sum + i.price, 0);
+
+            return `طلب جديد من موقع HIK Dev:\n` +
+                   `👤 الاسم: ${name}\n` +
+                   `📞 الهاتف: ${phone}\n` +
+                   `💳 طريقة الدفع: ${payment}\n` +
+                   `🛒 الخدمات المختارة:\n${itemsText}\n` +
+                   `💰 الإجمالي الكلي: ${total} جنيه`;
+        }
+
+        function checkoutWhatsApp() {
+            if(cart.length === 0) { alert('سلتك فارغة!'); return; }
+            let text = encodeURIComponent(getOrderDetailsText());
+            window.open(`https://wa.me/${whatsappNumber}?text=${text}`, '_blank');
+        }
+
+        function checkoutInstagram() {
+            if(cart.length === 0) { alert('سلتك فارغة!'); return; }
+            alert("سيتم توجيهك لإنستجرام، يرجى لصق تفاصيل الطلب في رسالة خاصة للدعم!");
+            window.open(`https://instagram.com/${instagramUsername}`, '_blank');
+        }
+
+        function checkoutSheet() {
+            if(cart.length === 0) { alert('سلتك فارغة!'); return; }
+            let name = document.getElementById('clientName').value;
+            let phone = document.getElementById('clientPhone').value;
+            if(!name || !phone) {
+                alert('من فضلك أدخل الاسم ورقم الهاتف أولاً لتأكيد الطلب!');
+                return;
+            }
+
+            let itemsText = cart.map(i => `${i.name} (${i.price}ج)`).join(' - ');
+            let totalVal = cart.reduce((sum, i) => sum + i.price, 0) + " جنيه";
+            let paymentVal = document.getElementById('paymentMethod').value;
+
+            // ⚠️ استبدل هذا الرابط برابط الـ Web App الخاص بك من جوجل شيت
+            const scriptURL = 'YOUR_GOOGLE_APPS_SCRIPT_WEB_APP_URL_HERE';
+
+            let requestData = {
+                name: name,
+                phone: phone,
+                items: itemsText,
+                total: totalVal,
+                payment: paymentVal
+            };
+
+            fetch(scriptURL, {
+                method: 'POST',
+                mode: 'no-cors',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(requestData)
+            }).then(() => {
+                alert("🎉 تم تأكيد طلبك وتسجيله بنجاح! يتم الآن توجيهك للواتساب لإتمام الاتفاق.");
+                checkoutWhatsApp();
+                cart = [];
+                updateCartUI();
+                closeCartModal();
+            }).catch(error => {
+                alert("تم إرسال الطلب، وجاري توجيهك للواتساب...");
+                checkoutWhatsApp();
+            });
+        }
+
+        window.onclick = function(event) {
+            let modal = document.getElementById('cartModal');
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+    </script>
+
+</body>
+</html>

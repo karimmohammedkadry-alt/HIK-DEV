@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IK Dev - المتجر الرقمي</title>
+    <!-- ربط ملف التنسيق style5.css -->
+    <link rel="stylesheet" href="style5.css">
+    <style>
+        /* Toast Notification Styling */
+        #toast { position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%) translateY(100px); background: #38bdf8; color: #000; padding: 12px 24px; border-radius: 30px; font-weight: 700; font-size: 13px; transition: 0.3s; opacity: 0; z-index: 10000; box-shadow: 0 10px 25px rgba(56,189,248,0.4); }
+        #toast.show { transform: translateX(-50%) translateY(0); opacity: 1; }
+        
+        /* Custom Request Section Styling */
+        .custom-request-section { background: rgba(15, 23, 42, 0.8); border: 2px dashed #38bdf8; border-radius: 15px; padding: 25px; margin: 40px auto; max-width: 800px; text-align: right; box-shadow: 0 0 20px rgba(56,189,248,0.2); }
+        .custom-request-section h2 { color: #fbbf24; margin-bottom: 10px; font-size: 22px; }
+        .custom-request-section p { color: #94a3b8; margin-bottom: 20px; font-size: 14px; }
+    </style>
+</head>
+<body>
+
+    <div id="toast">جاري حفظ الأوردر وتحويلك للواتساب... 🚀</div>
+
+    <!-- خلفية الـ 3D التفاعلية (Canvas) -->
+    <canvas id="bg3dCanvas"></canvas>
+
+    <!-- القائمة العلوية Navbar -->
+    <header class="neon-navbar">
+        <div class="logo">IK <span>Dev</span> Store</div>
+        <nav>
+            <ul class="nav-links">
+                <li><a href="index.html" class="nav-btn-3d">الرئيسية</a></li>
+                <li><a href="services.html" class="nav-btn-3d">الخدمات</a></li>
+                <li><a href="pricing.html" class="nav-btn-3d">الباقات</a></li>
+                <li><a href="store.html" class="nav-btn-3d active-3d">المتجر</a></li>
+                <li><a href="about.html" class="nav-btn-3d">من نحن</a></li>
+                <li><a href="cv.html" class="nav-btn-3d">تواصل معنا</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- عنوان الصفحة وشريط البحث -->
+    <section class="store-hero">
+        <h1 class="glow-text">🛒 متجر المنتجات والأنظمة الجاهزة</h1>
+        <p class="sub-glow">امتلك قوالبك وسكربتاتك المبرمجة بذكاء وابدأ مشروعك في دقائق</p>
+        
+        <!-- شريط البحث الفعال -->
+        <div class="search-box">
+            <input type="text" id="searchInput" onkeyup="filterProducts()" placeholder="🔍 ابحث عن قالب، سكربت، أو نظام...">
+        </div>
+    </section>
+
+    <!-- شبكة المنتجات -->
+    <section class="products-grid" id="productsContainer">
+        
+        <!-- منتج 1 -->
+        <div class="product-card 3d-card" data-title="نظام إدارة المبيعات والكاشير POS">
+            <div class="product-badge">الأكثر طلباً</div>
+            <div class="product-icon">💻</div>
+            <h3>نظام الكاشير والمخازن POS</h3>
+            <p>نظام ذكي وشامل لإدارة المبيعات، الفواتير، والطلبات للشركات والمحلات.</p>
+            <div class="price-tag">1500 جنيه</div>
+            <button type="button" class="buy-btn-3d" onclick="openCheckout('نظام الكاشير والمخازن POS', 1500)">شراء الآن ⚡</button>
+        </div>
+
+        <!-- منتج 2 -->
+        <div class="product-card 3d-card" data-title="قالب متجر إلكتروني متكامل">
+            <div class="product-badge">جاهز للربط</div>
+            <div class="product-icon">🛍️</div>
+            <h3>قالب متجر إلكتروني احترافي</h3>
+            <p>تصميم نيون عصري، متجاوب، ومجهز بسلة مشتريات وبوابات دفع.</p>
+            <div class="price-tag">1200 جنيه</div>
+            <button type="button" class="buy-btn-3d" onclick="openCheckout('قالب متجر إلكتروني احترافي', 1200)">شراء الآن ⚡</button>
+        </div>
+
+        <!-- منتج 3 -->
+        <div class="product-card 3d-card" data-title="سكربت ربط الواتساب التلقائي">
+            <div class="product-badge">سكربت ذكي</div>
+            <div class="product-icon">📲</div>
+            <h3>سكربت إشعارات الواتساب</h3>
+            <p>ربط موقعك بالواتساب لإرسال تأكيدات الطلبات والرسائل تلقائياً.</p>
+            <div class="price-tag">500 جنيه</div>
+            <button type="button" class="buy-btn-3d" onclick="openCheckout('سكربت إشعارات الواتساب', 500)">شراء الآن ⚡</button>
+        </div>
+
+        <!-- منتج 4 -->
+        <div class="product-card 3d-card" data-title="نظام حجز المواعيد والعيادات">
+            <div class="product-badge">تفاعلي</div>
+            <div class="product-icon">📅</div>
+            <h3>نظام الحجز أونلاين</h3>
+            <p>سكربت مخصص للعيادات، الصالونات، ومكاتب الاستشارات مع التقويم.</p>
+            <div class="price-tag">1000 جنيه</div>
+            <button type="button" class="buy-btn-3d" onclick="openCheckout('نظام الحجز أونلاين', 1000)">شراء الآن ⚡</button>
+        </div>
+
+        <!-- منتج 5 -->
+        <div class="product-card 3d-card" data-title="حزمة الهوية البصرية واللوجو">
+            <div class="product-badge">تصميم</div>
+            <div class="product-icon">🎨</div>
+            <h3>حزمة الهوية البصرية الجاهزة</h3>
+            <p>تصاميم لوجو، كروت شخصية، وبوستات سوشيال ميديا قابلة للتعديل.</p>
+            <div class="price-tag">1500 جنيه</div>
+            <button type="button" class="buy-btn-3d" onclick="openCheckout('حزمة الهوية البصرية الجاهزة', 1500)">شراء الآن ⚡</button>
+        </div>
+
+        <!-- منتج 6 -->
+        <div class="product-card 3d-card" data-title="قالب صفحة هبوط Landing Page">
+            <div class="product-badge">سريع جداً</div>
+            <div class="product-icon">🚀</div>
+            <h3>قالب Landing Page سريع</h3>
+            <p>صفحة تعريفية عالية التحويل ومناسبة للحملات الإعلانية المباشرة.</p>
+            <div class="price-tag">700 جنيه</div>
+            <button type="button" class="buy-btn-3d" onclick="openCheckout('قالب Landing Page سريع', 700)">شراء الآن ⚡</button>
+        </div>
+
+    </section>
+
+    <!-- قسم طلب برمجي مخصص (خارج المنتجات - بره) -->
+    <section class="custom-request-section">
+        <h2>🛠️ هل تحتاج إلى نظام أو فكرة برمجية مخصصة؟</h2>
+        <p>اكتب لنا تفاصيل مشروعك أو فكرتك وسنقوم بتنفيذها خصيصاً لك بأعلى كفاءة.</p>
+        
+        <form id="customOrderForm" onsubmit="processCustomOrder(event)">
+            <input type="text" id="custNameExt" name="Name" placeholder="الاسم بالكامل" required class="cyber-input">
+            <input type="tel" id="custPhoneExt" name="Phone" placeholder="رقم الهاتف / الواتساب" required class="cyber-input">
+            <input type="email" id="custEmailExt" name="Email" placeholder="البريد الإلكتروني" required class="cyber-input">
+            
+            <label style="display:block; margin:5px 0; color:#cbd5e1; font-size:13px;">اختر مجال النظام المطلوب:</label>
+            <select id="devCategoryExt" name="DevCategory" class="cyber-input" style="margin-bottom: 10px;">
+                <option value="نظام كاشير ومبيعات POS">💻 نظام كاشير ومبيعات POS</option>
+                <option value="متجر إلكتروني E-Commerce">🛍️ متجر إلكتروني E-Commerce</option>
+                <option value="سكربت واتساب وتواصل آلي">📲 سكربت واتساب وتواصل آلي</option>
+                <option value="صفحة هبوط Landing Page">🚀 صفحة هبوط Landing Page</option>
+                <option value="تطوير واجهات أمامية Frontend">🎨 تطوير واجهات أمامية Frontend</option>
+                <option value="برمجة خاصة فكرة جديدة">⚙️ برمجة خاصة (فكرة جديدة)</option>
+            </select>
+
+            <textarea id="custNotesExt" name="ClientNotes" placeholder="اكتب طلبك بالتفصيل: أنا أريد كذا وكذا، وبالشكل الفلاني..." rows="4" class="cyber-input" style="resize: none;" required></textarea>
+
+            <label style="display:block; margin:5px 0; color:#cbd5e1; font-size:13px;">اختر طريقة الدفع أو التواصل لتحديد السعر:</label>
+            <select id="paymentMethodExt" name="PaymentMethod" onchange="toggleWalletOptionsExt()" class="cyber-input">
+                <option value="InstaPay">📱 انستا باي (InstaPay)</option>
+                <option value="Vodafone Cash">📲 محفظة إلكترونية (فودافون كاش / غيرها)</option>
+                <option value="COD">🤝 اتفاق ودفع عند الاتفاق/الاستلام</option>
+            </select>
+
+            <div id="walletDetailsBoxExt" style="background: rgba(30, 58, 138, 0.4); padding: 12px; border-radius: 10px; margin-bottom: 12px;">
+                <label style="color: #fbbf24; font-size: 13px; font-weight: bold; display: block; margin-bottom: 6px;">اختر الرقم للتحويل عليه عند الاتفاق:</label>
+                <select id="transferNumberExt" class="cyber-input" style="margin-bottom:0;">
+                    <option value="01066517988">رقم (1): 01066517988</option>
+                    <option value="01125093884">رقم (2): 01125093884</option>
+                </select>
+            </div>
+
+            <button type="submit" class="buy-btn-3d full-width" style="margin-top: 10px;">إرسال الطلب المخصص 🚀</button>
+        </form>
+    </section>
+
+    <!-- نافذة إتمام الشراء المنبثقة (Checkout Modal) للمنتجات الجاهزة -->
+    <div id="checkoutModal" class="modal" style="display: none;">
+        <div class="modal-content 3d-modal">
+            <span class="close-btn" onclick="closeCheckout()">&times;</span>
+            <h2 style="color: #fbbf24; margin-bottom: 10px;">💳 إتمام عملية الشراء</h2>
+            <p id="selectedProductInfo" style="color: #38bdf8; font-weight: bold; margin-bottom: 15px;"></p>
+            
+            <form id="orderForm" onsubmit="processOrder(event)">
+                <input type="text" id="custName" name="Name" placeholder="الاسم بالكامل" required class="cyber-input">
+                <input type="tel" id="custPhone" name="Phone" placeholder="رقم الهاتف / الواتساب" required class="cyber-input">
+                <input type="email" id="custEmail" name="Email" placeholder="البريد الإلكتروني لاستلام المنتج" required class="cyber-input">
+                
+                <label style="display:block; text-align:right; margin:5px 0; color:#cbd5e1; font-size:13px;">ما هو النظام أو التعديل البرمجي المطلوب إضافته؟</label>
+                <select id="devCategory" name="DevCategory" class="cyber-input" style="margin-bottom: 10px;">
+                    <option value="نظام كاشير ومبيعات POS">💻 نظام كاشير ومبيعات POS</option>
+                    <option value="متجر إلكتروني E-Commerce">🛍️ متجر إلكتروني E-Commerce</option>
+                    <option value="سكربت واتساب وتواصل آلي">📲 سكربت واتساب وتواصل آلي</option>
+                    <option value="صفحة هبوط Landing Page">🚀 صفحة هبوط Landing Page</option>
+                    <option value="تطوير واجهات أمامية Frontend">🎨 تطوير واجهات أمامية Frontend</option>
+                    <option value="تعديل أو برمجة خاصة مخصصة">⚙️ تعديل أو برمجة خاصة مخصصة</option>
+                </select>
+
+                <textarea id="custNotes" name="ClientNotes" placeholder="اكتب ملاحظاتك أو طلباتك الخاصة مع المنتج..." rows="3" class="cyber-input" style="resize: none;"></textarea>
+
+                <label style="display:block; text-align:right; margin:5px 0; color:#cbd5e1; font-size:13px;">اختر طريقة الدفع المناسبة:</label>
+                <select id="paymentMethod" name="PaymentMethod" onchange="toggleWalletOptions()" required class="cyber-input">
+                    <option value="InstaPay">📱 انستا باي (InstaPay)</option>
+                    <option value="Vodafone Cash">📲 محفظة إلكترونية (فودافون كاش / غيرها)</option>
+                    <option value="COD">🤝 الدفع عند الاستلام والتأكيد</option>
+                </select>
+
+                <div id="walletDetailsBox" style="background: rgba(30, 58, 138, 0.4); padding: 12px; border-radius: 10px; margin-bottom: 12px; text-align: right;">
+                    <label id="walletLabel" style="color: #fbbf24; font-size: 13px; font-weight: bold; display: block; margin-bottom: 6px;">اختر الرقم للتحويل عليه:</label>
+                    <div style="display: flex; gap: 8px; margin-bottom: 10px;">
+                        <select id="transferNumber" class="cyber-input" style="margin-bottom:0; flex:1;">
+                            <option value="01066517988">رقم (1): 01066517988</option>
+                            <option value="01125093884">رقم (2): 01125093884</option>
+                        </select>
+                        <button type="button" onclick="openAppAndCopy()" class="buy-btn-3d" style="width: auto; padding: 0 15px; font-size: 13px; background: #16a34a;">نسخ وتحويل 📲</button>
+                    </div>
+                    <input type="text" id="senderAccount" name="SenderAccount" placeholder="رقم محفظتك أو عنوان InstaPay الذي حولت منه" required class="cyber-input" style="margin-bottom:0;">
+                </div>
+
+                <button type="submit" class="buy-btn-3d full-width" style="margin-top: 10px;">تأكيد وإرسال الطلب ✨</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- زر الصعود للأعلى (Back to Top) -->
+    <button id="backToTopBtn" onclick="scrollToTop()">▲</button>
+
+    <footer>
+        <p>جميع الحقوق محفوظة &copy; 2026 | IK Dev</p>
+    </footer>
+
+    <!-- سكريبت الجافاسكربت للتفاعل بذكاء -->
+    <script>
+        // --- 1. خلفية 3D بالجسيمات المتفاعلة ---
+        const canvas = document.getElementById('bg3dCanvas');
+        const ctx = canvas.getContext('2d');
+        let particlesArray = [];
+
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        });
+
+        const mouse = { x: null, y: null, radius: 150 };
+        window.addEventListener('mousemove', (e) => {
+            mouse.x = e.x;
+            mouse.y = e.y;
+        });
+
+        class Particle {
+            constructor(x, y, size, color) {
+                this.x = x; this.y = y; this.size = size; this.color = color;
+            }
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fillStyle = this.color;
+                ctx.fill();
+            }
+            update() {
+                let dx = mouse.x - this.x;
+                let dy = mouse.y - this.y;
+                let distance = Math.sqrt(dx * dx + dy * dy);
+                if (distance < mouse.radius) {
+                    this.x -= dx / 10;
+                    this.y -= dy / 10;
+                }
+            }
+        }
+
+        function initParticles() {
+            particlesArray = [];
+            for (let i = 0; i < 70; i++) {
+                let x = Math.random() * canvas.width;
+                let y = Math.random() * canvas.height;
+                let size = Math.random() * 3 + 1;
+                particlesArray.push(new Particle(x, y, size, '#2563eb'));
+            }
+        }
+
+        function animateParticles() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            for (let i = 0; i < particlesArray.length; i++) {
+                particlesArray[i].update();
+                particlesArray[i].draw();
+            }
+            requestAnimationFrame(animateParticles);
+        }
+        initParticles();
+        animateParticles();
+
+        // --- إشعارات Toast ---
+        function showToast(msg) {
+            const t = document.getElementById("toast");
+            t.innerText = msg;
+            t.classList.add("show");
+            setTimeout(() => t.classList.remove("show"), 3500);
+        }
+
+        // إظهار وإخفاء خيارات التحويل للمودال
+        function toggleWalletOptions() {
+            let method = document.getElementById('paymentMethod').value;
+            let box = document.getElementById('walletDetailsBox');
+            let senderInput = document.getElementById('senderAccount');
+
+            if (method === "COD") {
+                box.style.display = "none";
+                senderInput.required = false;
+            } else {
+                box.style.display = "block";
+                senderInput.required = true;
+            }
+        }
+
+        // إظهار وإخفاء خيارات التحويل للقسم الخارجي البره
+        function toggleWalletOptionsExt() {
+            let method = document.getElementById('paymentMethodExt').value;
+            let box = document.getElementById('walletDetailsBoxExt');
+            if (method === "COD") {
+                box.style.display = "none";
+            } else {
+                box.style.display = "block";
+            }
+        }
+
+        // نسخ الرقم المختار وتوجيه العميل للتطبيق
+        function openAppAndCopy() {
+            let selectedVal = document.getElementById('transferNumber').value;
+            let method = document.getElementById('paymentMethod').value;
+
+            navigator.clipboard.writeText(selectedVal);
+            alert(`✅ تم نسخ الرقم (${selectedVal}) إلى الحافظة!\nجارٍ توجيهك للتطبيق...`);
+
+            if (method === "InstaPay") {
+                window.location.href = "instapay://"; 
+                setTimeout(() => {
+                    window.location.href = "https://play.google.com/store/apps/details?id=com.miph.instapay";
+                }, 1500);
+            } else {
+                window.location.href = `tel:${selectedVal}`;
+            }
+        }
+
+        // --- البحث المباشر ---
+        function filterProducts() {
+            let input = document.getElementById('searchInput').value.toLowerCase();
+            let cards = document.getElementsByClassName('product-card');
+
+            for (let i = 0; i < cards.length; i++) {
+                let title = cards[i].getAttribute('data-title').toLowerCase();
+                if (title.includes(input)) {
+                    cards[i].style.display = "block";
+                } else {
+                    cards[i].style.display = "none";
+                }
+            }
+        }
+
+        // --- المودال (تم إصلاح الدوال وربطها بالزرار بدقة) ---
+        let currentProduct = "";
+        let currentPrice = 0;
+
+        function openCheckout(productName, price) {
+            currentProduct = productName;
+            currentPrice = price;
+            document.getElementById('selectedProductInfo').innerText = `المنتج: ${productName} - السعر: ${price} جنيه`;
+            let modal = document.getElementById('checkoutModal');
+            modal.style.display = 'flex';
+            toggleWalletOptions();
+        }
+
+        function closeCheckout() {
+            document.getElementById('checkoutModal').style.display = 'none';
+        }
+
+        // إغلاق المودال عند الضغط في أي مكان خارجه
+        window.onclick = function(event) {
+            let modal = document.getElementById('checkoutModal');
+            if (event.target === modal) {
+                closeCheckout();
+            }
+        }
+
+        // --- إرسال المنتجات الجاهزة ---
+        const FORM_URL = "https://formbold.com/s/9BL42";
+        const MY_WHATSAPP_NUMBER = "201066517988";
+
+        function processOrder(e) {
+            e.preventDefault();
+            
+            let name = document.getElementById('custName').value;
+            let phone = document.getElementById('custPhone').value;
+            let email = document.getElementById('custEmail').value;
+            let devCategory = document.getElementById('devCategory').value;
+            let notes = document.getElementById('custNotes').value || "لا توجد تفاصيل إضافية";
+            let method = document.getElementById('paymentMethod').value;
+            let receiver = document.getElementById('transferNumber').value || "غير محدد";
+            let sender = document.getElementById('senderAccount').value || "غير مفعل";
+
+            const formData = new FormData();
+            formData.append("Name", name);
+            formData.append("Phone", phone);
+            formData.append("Email", email);
+            formData.append("DevCategory", devCategory);
+            formData.append("ClientNotes", notes);
+            formData.append("Item", `${currentProduct} (${currentPrice} جنيه)`);
+            formData.append("PaymentMethod", method);
+            formData.append("TransferTo", receiver);
+            formData.append("SenderAccount", sender);
+
+            fetch(FORM_URL, {
+                method: "POST",
+                body: formData,
+                headers: { 'Accept': 'application/json' }
+            }).catch(err => console.error("Form error:", err));
+
+            let extraInfo = "";
+            if (method !== "COD") {
+                extraInfo = `%0A🎯 *الرقم المحول عليه:* ${receiver}%0A📌 *الرقم المحول منه:* ${sender}`;
+            }
+
+            let message = `*طلب شراء جديد من المتجر 🛒*%0A%0A` +
+                          `📦 *المنتج:* ${currentProduct}%0A` +
+                          `💰 *السعر:* ${currentPrice} جنيه%0A` +
+                          `👤 *الاسم:* ${name}%0A` +
+                          `📱 *الهاتف:* ${phone}%0A` +
+                          `📧 *الإيميل:* ${email}%0A` +
+                          `💻 *المجال المختار:* ${devCategory}%0A` +
+                          `📝 *التفاصيل:* ${notes}%0A` +
+                          `💳 *الدفع:* ${method}` + extraInfo;
+
+            showToast("تم حفظ الأوردر في الشيت وجاري فتح الواتساب...");
+
+            setTimeout(() => {
+                closeCheckout();
+                window.open(`https://api.whatsapp.com/send?phone=${MY_WHATSAPP_NUMBER}&text=${message}`, '_blank');
+                document.getElementById('orderForm').reset();
+            }, 1000);
+        }
+
+        // --- إرسال الطلب المخصص الخارجي (بره) ---
+        function processCustomOrder(e) {
+            e.preventDefault();
+
+            let name = document.getElementById('custNameExt').value;
+            let phone = document.getElementById('custPhoneExt').value;
+            let email = document.getElementById('custEmailExt').value;
+            let devCategory = document.getElementById('devCategoryExt').value;
+            let notes = document.getElementById('custNotesExt').value;
+            let method = document.getElementById('paymentMethodExt').value;
+            let receiver = document.getElementById('transferNumberExt').value;
+
+            const formData = new FormData();
+            formData.append("Name", name);
+            formData.append("Phone", phone);
+            formData.append("Email", email);
+            formData.append("DevCategory", devCategory);
+            formData.append("ClientNotes", notes);
+            formData.append("Item", "طلب برمجي مخصص (خارجي)");
+            formData.append("PaymentMethod", method);
+            formData.append("TransferTo", receiver);
+            formData.append("SenderAccount", "طلب مخصص - قيد الاتفاق");
+
+            fetch(FORM_URL, {
+                method: "POST",
+                body: formData,
+                headers: { 'Accept': 'application/json' }
+            }).catch(err => console.error("Form error:", err));
+
+            let message = `*🛠️ طلب برمجي مخصص جديد (من المتجر بره)*%0A%0A` +
+                          `👤 *الاسم:* ${name}%0A` +
+                          `📱 *الهاتف:* ${phone}%0A` +
+                          `📧 *الإيميل:* ${email}%0A` +
+                          `💻 *المجال المطلوب:* ${devCategory}%0A` +
+                          `📝 *تفاصيل الطلب:* ${notes}%0A` +
+                          `💳 *طريقة الدفع/التواصل:* ${method}%0A` +
+                          `🎯 *الرقم المختار للتواصل/التحويل:* ${receiver}`;
+
+            showToast("تم إرسال طلبك المخصص بنجاح وجاري فتح الواتساب...");
+
+            setTimeout(() => {
+                window.open(`https://api.whatsapp.com/send?phone=${MY_WHATSAPP_NUMBER}&text=${message}`, '_blank');
+                document.getElementById('customOrderForm').reset();
+            }, 1000);
+        }
+
+        // --- زر الصعود للأعلى ---
+        const topBtn = document.getElementById("backToTopBtn");
+        window.onscroll = function () {
+            if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
+                topBtn.style.display = "block";
+            } else {
+                topBtn.style.display = "none";
+            }
+        };
+
+        function scrollToTop() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+    </script>
+</body>
+</html>

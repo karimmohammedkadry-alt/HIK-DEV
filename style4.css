@@ -1,0 +1,246 @@
+@import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@500;700;900&display=swap');
+
+html {
+    scroll-behavior: smooth;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Tajawal', sans-serif;
+}
+
+/* خلفية ديناميكية داكنة ومستقبلية */
+body {
+    background: linear-gradient(135deg, #060814 0%, #0b112c 50%, #050716 100%);
+    color: #f1f5f9;
+    overflow-x: hidden;
+    min-height: 100vh;
+}
+
+/* الـ Navbar المطور: عناصر بجانب بعضها مع مسافات مريحة */
+.neon-navbar {
+    background: rgba(6, 8, 20, 0.85);
+    border-bottom: 2px solid #2563eb;
+    box-shadow: 0 0 20px rgba(37, 99, 235, 0.25);
+    padding: 15px 5%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    backdrop-filter: blur(10px);
+}
+
+.neon-navbar .logo {
+    font-size: 28px;
+    font-weight: 900;
+    color: #ffffff;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+}
+
+.neon-navbar .logo span {
+    color: #2563eb;
+    text-shadow: 0 0 15px #2563eb;
+}
+
+/* قائمة الروابط مصفوفة جنب بعض بجدارة وبمسافة (gap) قوية */
+.nav-links {
+    list-style: none;
+    display: flex;
+    flex-direction: row; /* إجبار العناصر تكون جنب بعض */
+    gap: 20px; /* مسافة واضحة بين كل زر وزر */
+    align-items: center;
+}
+
+/* أنيميشن زرار الـ 3D الخارق عند الضغط الفعلي */
+.nav-btn-3d {
+    display: inline-block;
+    padding: 10px 24px;
+    background: #0f172a;
+    color: #38bdf8 !important;
+    text-decoration: none;
+    font-weight: 700;
+    border-radius: 8px;
+    border: 1px solid #1e3a8a;
+    box-shadow: 0 5px 0 #1e293b, 0 8px 15px rgba(0, 0, 0, 0.4);
+    position: relative;
+    top: 0;
+    transition: background 0.2s, color 0.2s;
+}
+
+.nav-btn-3d:hover {
+    background: #1e3a8a;
+    color: #ffffff !important;
+    border-color: #38bdf8;
+}
+
+/* تأثير الانضغاط الـ 3D الفوري والممتع عند الكليك */
+.nav-btn-3d:active {
+    top: 5px; /* يكبس لأسفل بالكامل */
+    box-shadow: 0 0px 0 #1e293b, 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+/* الزر النشط المتوهج بالأزرق السيبراني */
+.active-3d {
+    background: #2563eb;
+    color: #ffffff !important;
+    border-color: #60a5fa;
+    box-shadow: 0 5px 0 #1d4ed8, 0 8px 15px rgba(37, 99, 235, 0.3) !important;
+}
+.active-3d:active {
+    top: 5px !important;
+    box-shadow: 0 0px 0 #1d4ed8 !important;
+}
+
+/* قسم الـ Hero بتأثيرات إضاءة وأنيميشن دخول */
+.cyber-hero {
+    text-align: center;
+    padding: 80px 20px 40px 20px;
+    animation: fadeInDown 1s ease-out;
+}
+
+.glow-text {
+    font-size: 48px;
+    font-weight: 900;
+    color: #ffffff;
+    text-shadow: 0 0 20px rgba(255,255,255,0.2), 0 0 40px rgba(37, 99, 235, 0.6);
+}
+
+.sub-glow {
+    font-size: 18px;
+    color: #94a3b8;
+    margin-top: 15px;
+}
+
+/* حاوية الكروت وقسم من نحن التفاعلي */
+.about-container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 20px;
+    animation: fadeInUp 1.2s ease-out;
+}
+
+.cyber-card {
+    background: rgba(15, 23, 42, 0.6);
+    border: 2px solid #1e3a8a;
+    box-shadow: 0 0 30px rgba(30, 58, 138, 0.2);
+    padding: 40px;
+    border-radius: 20px;
+    transition: all 0.3s ease;
+}
+
+.cyber-card:hover {
+    border-color: #38bdf8;
+    box-shadow: 0 0 40px rgba(56, 189, 248, 0.25);
+    transform: scale(1.01);
+}
+
+.cyber-card h2 {
+    color: #ffffff;
+    margin-bottom: 20px;
+    font-size: 26px;
+}
+
+.cyber-card p {
+    font-size: 17px;
+    line-height: 1.9;
+    color: #cbd5e1;
+}
+
+/* قسم الإحصائيات المتوهجة والحركية */
+.dynamic-stats {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    max-width: 1200px;
+    margin: 60px auto 100px auto;
+    padding: 0 20px;
+    flex-wrap: wrap;
+}
+
+.stat-box {
+    background: #0f172a;
+    border: 1px solid #1e293b;
+    padding: 35px 25px;
+    border-radius: 18px;
+    text-align: center;
+    flex: 1;
+    min-width: 240px;
+    position: relative;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.stat-box:hover {
+    transform: translateY(-8px) scale(1.03);
+    border-color: #38bdf8;
+    box-shadow: 0 15px 30px rgba(56, 189, 248, 0.15);
+}
+
+/* تمييز بوكس عدد المشاريع بستايل نيون ناري */
+.core-box {
+    border: 2px solid #ef4444;
+    box-shadow: 0 0 20px rgba(239, 68, 68, 0.15);
+}
+.core-box:hover {
+    border-color: #f87171;
+    box-shadow: 0 15px 35px rgba(239, 68, 68, 0.3);
+}
+
+.stat-num {
+    font-size: 46px;
+    font-weight: 900;
+    color: #ffffff;
+    display: block;
+    margin-bottom: 10px;
+    text-shadow: 0 0 15px rgba(255,255,255,0.4);
+}
+
+.core-box .stat-num {
+    color: #ef4444;
+    text-shadow: 0 0 15px rgba(239, 68, 68, 0.5);
+}
+
+.stat-box p {
+    color: #94a3b8;
+    font-size: 15px;
+    font-weight: 500;
+}
+
+/* أنيميشن الدخول والتأثيرات الحركية الفخمة */
+@keyframes fadeInDown {
+    from { opacity: 0; transform: translateY(-30px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(40px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* توافق الشاشات للموبايل (لو الشاشة صغيرة تقلب قائمة منسدلة أو تحت بعض تلقائيًا عشان تبان صح) */
+@media (max-width: 768px) {
+    .neon-navbar {
+        flex-direction: column;
+        gap: 15px;
+        text-align: center;
+    }
+    .nav-links {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 10px;
+    }
+    .dynamic-stats {
+        flex-direction: column;
+    }
+}
+
+footer {
+    text-align: center;
+    padding: 40px;
+    background: #02040a;
+    color: #475569;
+    border-top: 1px solid #1e293b;
+}

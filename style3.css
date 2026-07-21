@@ -1,0 +1,310 @@
+/* استيراد خط تجول الفخم من جوجل */
+@import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@450;500;700&display=swap');
+
+html {
+    scroll-behavior: smooth;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Tajawal', sans-serif;
+}
+
+/* خلفية الموقع: غامقة وفخمة جداً مع تدرج ناعم */
+body {
+    background: radial-gradient(circle at 50% 50%, #1a1f2c 0%, #0d1017 100%);
+    color: #e2e8f0;
+    line-height: 1.6;
+    overflow-x: hidden;
+}
+
+/* القائمة العلوية - الفخامة الزجاجية (Glassmorphism) */
+header {
+    background: rgba(13, 16, 23, 0.75);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    padding: 20px 8%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+header .logo {
+    font-size: 26px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    background: linear-gradient(135deg, #fbbf24 0%, #d97706 100%); /* ذهبي ملكي */
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+    gap: 15px;
+}
+
+/* تأثير 3D خفيف لأزرار المنيو العلوية */
+.nav-btn {
+    display: inline-block;
+    padding: 10px 22px;
+    background: #1e293b;
+    color: #f8fafc !important;
+    text-decoration: none;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 14px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 4px 0 #0f172a; /* عمق 3D أسفل الزر */
+    transition: all 0.1s ease; /* حركة سريعة جداً للمحاكاة */
+    position: relative;
+    top: 0;
+}
+
+.nav-btn:hover {
+    background: #2563eb; /* يتحول للأزرق الفخم عند الوقوف عليه */
+    border-color: #3b82f6;
+}
+
+/* التفاعل الثنائي الـ 3D عند الضغط الفعلي (Click) */
+.nav-btn:active {
+    top: 4px; /* النزول للأسفل بمقدار الظل */
+    box-shadow: 0 0px 0 #0f172a; /* اختفاء الظل لإعطاء إيحاء الضغط */
+}
+
+.active-page {
+    background: linear-gradient(135deg, #d97706 0%, #b45309 100%) !important;
+    box-shadow: 0 4px 0 #78350f !important;
+    border: none;
+}
+.active-page:active {
+    top: 4px !important;
+    box-shadow: 0 0px 0 #78350f !important;
+}
+
+/* قسم العنوان الرئيسي - Hero Section */
+.hero {
+    text-align: center;
+    padding: 100px 20px;
+    background: relative;
+}
+
+.hero h1 {
+    font-size: 46px;
+    color: #ffffff;
+    margin-bottom: 20px;
+    font-weight: 700;
+    text-shadow: 0 4px 12px rgba(0,0,0,0.5);
+}
+
+.hero p {
+    font-size: 18px;
+    color: #94a3b8;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+/* قسم العروض الحصرية */
+.offers-section {
+    max-width: 1200px;
+    margin: 40px auto;
+    padding: 0 20px;
+}
+
+.section-title {
+    text-align: center;
+    margin-bottom: 50px;
+    font-size: 30px;
+    color: #ffffff;
+    font-weight: 700;
+}
+
+.offers-container, .pricing-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 35px;
+    margin-bottom: 60px;
+}
+
+/* الكروت الفخمة (Premium Cards) */
+.offer-card, .pricing-card {
+    background: rgba(30, 41, 59, 0.4);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    padding: 40px 30px;
+    border-radius: 20px;
+    position: relative;
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+.offer-card:hover, .pricing-card:hover {
+    transform: translateY(-5px);
+    border-color: rgba(251, 191, 36, 0.5);
+    box-shadow: 0 15px 35px rgba(251, 191, 36, 0.05);
+}
+
+/* تمييز الكروت المطلوبة */
+.featured-offer, .pricing-card.featured {
+    border: 1px solid #d97706;
+    background: rgba(217, 119, 6, 0.05);
+}
+
+.offer-badge, .pricing-card .badge {
+    position: absolute;
+    top: -14px;
+    right: 30px;
+    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+    color: white;
+    padding: 6px 16px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: bold;
+    box-shadow: 0 4px 10px rgba(16, 185, 129, 0.3);
+}
+
+.offer-badge.hot {
+    background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+    box-shadow: 0 4px 10px rgba(239, 68, 68, 0.3);
+}
+
+.offer-card h3, .pricing-card h3 {
+    font-size: 22px;
+    color: #ffffff;
+    margin: 15px 0 10px 0;
+}
+
+.offer-desc {
+    font-size: 15px;
+    color: #94a3b8;
+    min-height: 48px;
+}
+
+/* تنسيق الأسعار */
+.offer-price, .pricing-card .price {
+    margin: 25px 0;
+}
+
+.old-price {
+    font-size: 16px;
+    color: #64748b;
+    text-decoration: line-through;
+    margin-left: 10px;
+}
+
+.new-price, .pricing-card .price {
+    font-size: 32px;
+    font-weight: 700;
+    color: #fbbf24; /* لون ذهبي مضيء */
+    text-shadow: 0 0 10px rgba(251, 191, 36, 0.2);
+}
+
+/* القوائم داخل الكروت */
+.pricing-card .features {
+    list-style: none;
+    margin-bottom: 35px;
+    text-align: right;
+    padding-right: 15px;
+}
+
+.pricing-card .features li {
+    margin-bottom: 14px;
+    color: #cbd5e1;
+}
+
+.pricing-card .features li::before {
+    content: "✓";
+    color: #10b981;
+    margin-left: 10px;
+    font-weight: bold;
+}
+
+/* أزرار الأكشن الكبيرة بنظام الـ 3D الخارق 🔥 */
+.pricing-btn {
+    display: block;
+    width: 100%;
+    padding: 14px 28px;
+    font-size: 16px;
+    font-weight: 700;
+    color: #ffffff;
+    background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    position: relative;
+    top: 0;
+    /* هذا هو السر اللذي يعطي العمق ثلاثي الأبعاد للزر */
+    box-shadow: 0 6px 0 #1e3a8a, 0 12px 20px rgba(0, 0, 0, 0.4);
+    transition: all 0.1s ease; 
+}
+
+.pricing-btn:hover {
+    background: linear-gradient(135deg, #60a5fa 0%, #2563eb 100%);
+}
+
+/* الأنميشن المجسم عند الضغط بالماوس (3D Click Animation) */
+.pricing-btn:active {
+    top: 6px; /* يتحرك لأسفل بنفس مسافة الظل السميك */
+    box-shadow: 0 0px 0 #1e3a8a, 0 4px 10px rgba(0, 0, 0, 0.2); /* يختفي الظل ليصبح الزر مضغوطاً تماماً */
+}
+
+/* تخصيص زر الكارت المميز بلون ذهبي */
+.featured-offer .pricing-btn, .pricing-card.featured .pricing-btn {
+    background: linear-gradient(135deg, #fbbf24 0%, #d97706 100%);
+    box-shadow: 0 6px 0 #78350f, 0 12px 20px rgba(0, 0, 0, 0.4);
+}
+.featured-offer .pricing-btn:hover, .pricing-card.featured .pricing-btn:hover {
+    background: linear-gradient(135deg, #fcd34d 0%, #f59e0b 100%);
+}
+.featured-offer .pricing-btn:active, .pricing-card.featured .pricing-btn:active {
+    top: 6px;
+    box-shadow: 0 0px 0 #78350f, 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* قسم التنبيهات السفلي */
+.notes-section {
+    max-width: 1200px;
+    margin: 40px auto 100px auto;
+    padding: 0 20px;
+}
+
+.notes-card {
+    background: rgba(30, 41, 59, 0.2);
+    border-right: 4px solid #fbbf24;
+    padding: 30px;
+    border-radius: 12px;
+}
+
+.notes-card h4 {
+    font-size: 18px;
+    color: #ffffff;
+    margin-bottom: 15px;
+}
+
+.notes-card ul {
+    list-style-type: square;
+    padding-right: 20px;
+    color: #94a3b8;
+}
+
+.notes-card ul li {
+    margin-bottom: 10px;
+    font-size: 14px;
+}
+
+/* أسفل الصفحة - Footer */
+footer {
+    text-align: center;
+    padding: 50px;
+    background: #090d12;
+    color: #64748b;
+    font-size: 20px;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+}

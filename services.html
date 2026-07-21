@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HIK Dev | الخدمات</title>
+    
+    <!-- ربط ملف الـ CSS الخارجي -->
+    <link rel="stylesheet" href="style2.css">
+    
+    <style>
+        /* تنسيق النافذة المنبثقة (Modal) لتفاصيل الخدمات */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.6);
+            backdrop-filter: blur(5px);
+            justify-content: center;
+            align-items: center;
+        }
+        .modal-content {
+            background: #0f172a;
+            color: #fff;
+            padding: 30px;
+            border-radius: 15px;
+            width: 90%;
+            max-width: 500px;
+            text-align: center;
+            border: 2px solid #38bdf8;
+            box-shadow: 0 0 20px rgba(56, 189, 248, 0.4);
+            position: relative;
+        }
+        .close-btn {
+            position: absolute;
+            top: 10px;
+            left: 15px;
+            font-size: 24px;
+            color: #38bdf8;
+            cursor: pointer;
+        }
+        .modal-content h3 { color: #fbbf24; margin-bottom: 15px; }
+        .modal-content p { color: #94a3b8; line-height: 1.6; margin-bottom: 20px; }
+        .modal-btn {
+            background: #38bdf8;
+            color: #000;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- القائمة العلوية (Navbar) -->
+    <header style="display: flex; justify-content: space-between; align-items: center; padding: 15px 30px; background: #0f172a;">
+        <div class="logo">
+            <a href="index.html">
+                <img src="images/logo.png" alt="HIK Dev Logo" style="height: 40px;" onerror="this.onerror=null; this.src='images/logo.jpg'; this.onerror=function(){ this.replaceWith(Object.assign(document.createElement('a'), {href:'index.html', innerText:'HIK Dev', style:'color:#38bdf8; font-weight:bold; font-size:20px; text-decoration:none;'})); };">
+            </a>
+        </div>
+        <nav>
+            <ul style="list-style: none; display: flex; gap: 15px; margin: 0; padding: 0;">
+                <li><a href="index.html" class="nav-btn">الرئيسية</a></li>
+                <li><a href="pricing.html" class="nav-btn">الباقات</a></li>
+                <li><a href="store.html" class="nav-btn">المتجر</a></li>
+                <li><a href="about.html" class="nav-btn">من نحن</a></li>
+                <li><a href="cv.html" class="nav-btn">تواصل معنا</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- عنوان الصفحة الرئيسي -->
+    <section class="hero" style="text-align: center; padding: 50px 20px;">
+        <h1>الخدمات التي نقدمها</h1>
+        <p>نحن هنا لمساعدتك في تنمية أعمالك بأفضل الحلول التقنية والإبداعية.</p>
+    </section>
+
+    <!-- قسم الخدمات (20 خدمة متكاملة) -->
+    <section class="services-container" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; padding: 20px 40px;">
+        
+        <!-- 1 -->
+        <div class="service-card"><div class="icon">💻</div><h3>تطوير المواقع</h3><p>تصميم وتطوير مواقع إلكترونية متجاوبة وسريعة تناسب جميع الشاشات.</p><button class="btn" onclick="showDetails('تطوير المواقع', 'نقوم ببرمجة وتطوير مواقع الويب الاحترافية بأحدث التقنيات مثل HTML5, CSS3, JavaScript لضمان سرعة فائقة وتجربة مستخدم مذهلة.')">المزيد</button></div>
+        <!-- 2 -->
+        <div class="service-card"><div class="icon">📱</div><h3>تطبيقات الموبايل</h3><p>بناء تطبيقات ذكية لأنظمة Android و iOS بأحدث التقنيات وبأداء عالٍ.</p><button class="btn" onclick="showDetails('تطبيقات الموبايل', 'تطبيقات هيكلية متكاملة للهواتف الذكية تناسب كافة الأنشطة التجارية وتعمل بكفاءة عالية على مختلف الأجهزة.')">المزيد</button></div>
+        <!-- 3 -->
+        <div class="service-card"><div class="icon">🎨</div><h3>التصميم الإبداعي</h3><p>تصميم هويات بصرية وشعارات مبتكرة تعكس قيمة علامتك التجارية.</p><button class="btn" onclick="showDetails('التصميم الإبداعي', 'نصمم لك هوية بصرية كاملة تشمل الشعار، الألوان، والخطوط التي تميز علامتك التجارية في السوق.')">المزيد</button></div>
+        <!-- 4 -->
+        <div class="service-card"><div class="icon">🛒</div><h3>المتاجر الإلكترونية</h3><p>إنشاء متاجر إلكترونية متكاملة مع بوابات الدفع وإدارة المنتجات.</p><button class="btn" onclick="showDetails('المتاجر الإلكترونية', 'متجر إلكتروني احترافي يدعم السلة، تتبع الطلبات، وبوابات الدفع الإلكتروني المتعددة بكل أمان.')">المزيد</button></div>
+        <!-- 5 -->
+        <div class="service-card"><div class="icon">⚙️</div><h3>برمجة الـ Backend</h3><p>ربط السيرفرات وقواعد البيانات وتطوير واجهات برمجة التطبيقات API.</p><button class="btn" onclick="showDetails('برمجة الـ Backend', 'بناء سيرفرات قوية وآمنة وقواعد بيانات متقدمة تدعم التوسع المستقبلي لمشروعك البرمجي.')">المزيد</button></div>
+        <!-- 6 -->
+        <div class="service-card"><div class="icon">🔒</div><h3>حماية وتأمين المواقع</h3><p>فحص وحماية المواقع ضد الهجمات الثغرات والاختراقات الإلكترونية.</p><button class="btn" onclick="showDetails('حماية وتأمين المواقع', 'تأمين شامل ضد هجمات الاختراق، حماية قواعد البيانات وتفعيل شهادات الأمان SSL.')">المزيد</button></div>
+        <!-- 7 -->
+        <div class="service-card"><div class="icon">🚀</div><h3>تحسين محركات البحث SEO</h3><p>ظهور موقعك في النتائج الأولى لـ Google لزيادة عدد الزوار والعملاء.</p><button class="btn" onclick="showDetails('تحسين محركات البحث SEO', 'تحسين الأكواد وسرعة الموقع والكلمات الدلالية لتتصدر نتائج محركات البحث وتجلب عملاء مستهدفين.')">المزيد</button></div>
+        <!-- 8 -->
+        <div class="service-card"><div class="icon">📊</div><h3>لوحات التحكم Dashboards</h3><p>أنظمة إدارة مخصصة للتحكم في البيانات والتقارير بكل سهولة.</p><button class="btn" onclick="showDetails('لوحات التحكم Dashboards', 'لوحة تحكم إدارية سهلة الاستخدام ومصممة خصيصاً لمتابعة المبيعات والعملاء وإدارة المحتوى.')">المزيد</button></div>
+        <!-- 9 -->
+        <div class="service-card"><div class="icon">☁️</div><h3>استضافة السيرفرات Cloud</h3><p>حجز واستضافة المواقع على سيرفرات سحابية سريعة ومستقرة.</p><button class="btn" onclick="showDetails('استضافة السيرفرات Cloud', 'نوفر لك استضافات سحابية عالية الأداء مع ضمان وقت تشغيل 99.9% ودعم فني متواصل.')">المزيد</button></div>
+        <!-- 10 -->
+        <div class="service-card"><div class="icon">💬</div><h3>أنظمة الدردشة الفورية</h3><p>ربط خدمة العملاء والشات بوت الذكي لمساعدتك في الرد على العملاء.</p><button class="btn" onclick="showDetails('أنظمة الدردشة الفورية', 'دمج أدوات الدعم الفني المباشر ومحركات الذكاء الاصطناعي للرد على استفسارات عملائك تلقائياً.')">المزيد</button></div>
+        <!-- 11 -->
+        <div class="service-card"><div class="icon">⚡</div><h3>تسريع أداء المواقع</h3><p>معالجة المشاكل التقنية وتقليل وقت تحميل الصفحات لسرعة قصوى.</p><button class="btn" onclick="showDetails('تسريع أداء المواقع', 'تحسين ضغط الصور، تنظيف الأكواد، وتسريع استجابة السيرفر للحصول على أعلى تقييم في الأداء.')">المزيد</button></div>
+        <!-- 12 -->
+        <div class="service-card"><div class="icon">💼</div><h3>أنظمة ERP للشركات</h3><p>برامج إدارة موارد المؤسسات وحسابات المحلات والمخازن.</p><button class="btn" onclick="showDetails('أنظمة ERP للشركات', 'برمجيات متكاملة لإدارة الحسابات، المخازن، شؤون العاملين، وحركة المبيعات بدقة تامة.')">المزيد</button></div>
+        <!-- 13 -->
+        <div class="service-card"><div class="icon">💳</div><h3>ربط بوابات الدفع</h3><p>دمج وسائل الدفع الإلكتروني (فيزا، فودافون كاش، باي بال) بموقعك.</p><button class="btn" onclick="showDetails('ربط بوابات الدفع', 'تفعيل خدمات الدفع الآمن ليتمكن عملاؤك من سداد فواتيرهم ومشترياتهم بكل سهولة وأمان.')">المزيد</button></div>
+        <!-- 14 -->
+        <div class="service-card"><div class="icon">🛠️</div><h3>الصيانة والدعم الفني</h3><p>متابعة دورية وتحديثات مستمرة لضمان عمل موقعك بدون توقف.</p><button class="btn" onclick="showDetails('الصيانة والدعم الفني', 'فريق دعم فني متواجد لمراقبة أداء موقعك، إصلاح الأخطاء الطارئة، وإجراء النسخ الاحتياطي.')">المزيد</button></div>
+        <!-- 15 -->
+        <div class="service-card"><div class="icon">🌐</div><h3>حجز النطاقات Domains</h3><p>تسجيل وربط أسماء النطاقات الاحترافية (.com, .net, .eg وغيرها).</p><button class="btn" onclick="showDetails('حجز النطاقات Domains', 'مساعدة في اختيار وحجز النطاق الأنسب لمشروعك الرقمي وتسجيله باسمك بالكامل.')">المزيد</button></div>
+        <!-- 16 -->
+        <div class="service-card"><div class="icon">✉️</div><h3>بريد إلكتروني رسمي</h3><p>إنشاء ايميلات رسمية باسم شركتك (info@yourcompany.com).</p><button class="btn" onclick="showDetails('بريد إلكتروني رسمي', 'تعزيز ثقة عملائك عبر إرسال البريد الإلكتروني الرسمي المرتبط بهوية شركتك التجارية.')">المزيد</button></div>
+        <!-- 17 -->
+        <div class="service-card"><div class="icon">🔄</div><h3>إعادة هيكلة وتطوير</h3><p>تطوير المواقع القديمة وتحديثها لأحدث معايير التكنولوجيا والتصميم.</p><button class="btn" onclick="showDetails('إعادة هيكلة وتطوير', 'تحديث واجهات موقعك القديم وتحسين الأكواد الداخلية ليتوافق مع متطلبات العصر الحديث.')">المزيد</button></div>
+        <!-- 18 -->
+        <div class="service-card"><div class="icon">📝</div><h3>إدارة المحتوى CMS</h3><p>أنظمة مخصصة لإضافة وتعديل المقالات والمنتجات بكل سهولة.</p><button class="btn" onclick="showDetails('إدارة المحتوى CMS', 'تمكينك من إدارة محتوى موقعك بالكامل بدون الحاجة لخبرة برمجية مسبقة.')">المزيد</button></div>
+        <!-- 19 -->
+        <div class="service-card"><div class="icon">🎯</div><h3>استشارات تقنية</h3><p>تقديم النصح والخطط الاستراتيجية لتنفيذ مشروعك البرمجي بنجاح.</p><button class="btn" onclick="showDetails('استشارات تقنية', 'جلسات استشارية مع خبراء برمجيات لمساعدتك في اختيار التقنيات الأنسب لمشروعك.')">المزيد</button></div>
+        <!-- 20 -->
+        <div class="service-card"><div class="icon">🧪</div><h3>فحص واختبار QA</h3><p>اختبار التطبيقات والمواقع واكتشاف الأخطاء قبل إطلاقها للجمهور.</p><button class="btn" onclick="showDetails('فحص واختبار QA', 'فحص شامل للأكواد واختبار تجربة المستخدم لضمان خلو مشروعك من أي أخطاء برمجية.')">المزيد</button></div>
+
+    </section>
+
+    <!-- نافذة منبثقة (Modal) تعرض تفاصيل الخدمة عند النقر -->
+    <div id="serviceModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal()">&times;</span>
+            <h3 id="modalTitle">عنوان الخدمة</h3>
+            <p id="modalDesc">تفاصيل الخدمة ستظهر هنا...</p>
+            <a href="store.html" class="modal-btn">اطلب الخدمة الآن</a>
+        </div>
+    </div>
+
+    <!-- الفوتر (أسفل الصفحة) -->
+    <footer style="text-align: center; padding: 20px; background: #0f172a; color: #94a3b8; margin-top: 40px;">
+        <p>جميع الحقوق محفوظة &copy; 2026 HIK Dev</p>
+    </footer>
+
+    <!-- زر الصعود لأعلى -->
+    <button id="topButton" title="الرجوع للأعلى" style="display: none; position: fixed; bottom: 20px; left: 20px; z-index: 999; background: #38bdf8; color: #000; border: none; padding: 10px 15px; border-radius: 50%; font-size: 18px; cursor: pointer; box-shadow: 0 4px 10px rgba(0,0,0,0.3);">
+        ↑
+    </button>
+
+    <!-- كود الجافاسكريبت للتحكم في النافذة وزر الصعود -->
+    <script>
+        // إظهار نافذة التفاصيل
+        function showDetails(title, desc) {
+            document.getElementById('modalTitle').innerText = title;
+            document.getElementById('modalDesc').innerText = desc;
+            document.getElementById('serviceModal').style.display = 'flex';
+        }
+
+        // إغلاق النافذة
+        function closeModal() {
+            document.getElementById('serviceModal').style.display = 'none';
+        }
+
+        // إغلاق النافذة عند الضغط خارجها
+        window.onclick = function(event) {
+            let modal = document.getElementById('serviceModal');
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+
+        // زر الصعود للأعلى
+        const topButton = document.getElementById("topButton");
+
+        window.onscroll = function () {
+            if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
+                topButton.style.display = "block";
+            } else {
+                topButton.style.display = "none";
+            }
+        };
+
+        topButton.onclick = function () {
+            window.scrollTo({
+                top: 0,
+                behavior: "smooth"
+            });
+        };
+    </script>
+
+</body>
+</html>

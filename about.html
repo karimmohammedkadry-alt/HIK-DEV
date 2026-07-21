@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IK Dev - من نحن</title>
+    <link rel="stylesheet" href="style4.css">
+</head>
+<body>
+
+    <!-- القائمة العلوية المحدثة (عناصر جنب بعض بمسافات واضحة) -->
+    <header class="neon-navbar">
+        <div class="logo">IK <span>Dev</span></div>
+        <nav>
+            <ul class="nav-links">
+                <li><a href="index.html" class="nav-btn-3d">الرئيسية</a></li>
+                <li><a href="services.html" class="nav-btn-3d">الخدمات</a></li>
+                <li><a href="pricing.html" class="nav-btn-3d">الباقات</a></li>
+                <li><a href="store.html" class="nav-btn-3d">المتجر</a></li>
+                <li><a href="about.html" class="nav-btn-3d active-3d">من نحن</a></li>
+                <li><a href="cv.html" class="nav-btn-3d">اتصل بنا</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- قسم العنوان الانفجاري -->
+    <section class="cyber-hero">
+        <h1 class="glow-text">من هم IK Dev؟</h1>
+        <p class="sub-glow">الخبرة، السرعة، والابتكار المجرد.. نحن لا نبرمج فقط، بل نصنع مستقبلك الرقمي.</p>
+    </section>
+
+    <!-- قسم القصة بتأثير زجاجي متوهج -->
+    <section class="about-container">
+        <div class="cyber-card story-card">
+            <h2>🔥 طاقة إبداعية بلا حدود</h2>
+            <p>نحن في <strong>IK Dev</strong> فريق برمجيات احترافي متخصص في قلب الموازين الرقمية. نقوم ببناء وتطوير المواقع الإلكترونية، الأنظمة الإدارية الصعبة، وتطبيقات الموبايل واللابتوب بكفاءة تتعدى التوقعات. نمتلك سنوات طويلة من الخبرة البرمجية في السوق، ونسخرها بالكامل لتقديم كود نظيف وتجربة مستخدم خارقة تضمن تفوق عملائنا الصدارة دائمًا.</p>
+        </div>
+    </section>
+
+    <!-- قسم الإحصائيات بحركة حية -->
+    <section class="dynamic-stats">
+        <div class="stat-box">
+            <span class="stat-num" data-target="5">0</span>
+            <p>سنوات خبرة متتالية</p>
+        </div>
+        <div class="stat-box core-box">
+            <span class="stat-num" data-target="150">0</span>
+            <p>مشروع برمجى ناجح</p>
+        </div>
+        <div class="stat-box">
+            <span class="stat-num" data-target="99">0</span>
+            <p>نسبة رضا وثقة عملائنا %</p>
+        </div>
+        <div class="stat-box">
+            <span class="stat-num" data-target="40">0</span>
+            <p>شريك نجاح وعميل دائم</p>
+        </div>
+    </section>
+
+    <!-- الفوتر -->
+    <footer>
+        <p>جميع الحقوق محفوظة &copy; 2026 | IK Dev</p>
+    </footer>
+
+    <!-- سكريبت العدادات التفاعلية للإحصائيات -->
+    <script>
+        // --- Counter Animation Logic ---
+        const counters = document.querySelectorAll('.stat-num');
+        
+        counters.forEach(counter => {
+            const updateCount = () => {
+                const target = +counter.getAttribute('data-target');
+                const count = +counter.innerText;
+                const increment = target / 50; // سرعة العداد
+
+                if (count < target) {
+                    counter.innerText = Math.ceil(count + increment);
+                    setTimeout(updateCount, 30);
+                } else {
+                    counter.innerText = target;
+                }
+            };
+            updateCount();
+        });
+    </script>
+
+</body>
+</html>
