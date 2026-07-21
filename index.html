@@ -9,13 +9,42 @@
     <title>HIK Dev | Web Development</title>
 
     <meta name="description" content="HIK Dev - تصميم مواقع ومتاجر إلكترونية وتطبيقات احترافية">
-    <meta name="keywords" content="HIK" Dev, تصميم مواقع, برمجة, متاجر إلكترونية">
+    <meta name="keywords" content="HIK Dev, تصميم مواقع, برمجة, متاجر إلكترونية">
     <meta name="author" content="HIK Dev">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
     <link rel="stylesheet" href="style.css">
     <link rel="icon" href="favicon.ico">
 
+    <!-- استدعاء مكتبة Three.js لأنيميشن الـ 3D التفاعلي -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script src="script.js" defer></script>
+
+    <style>
+        .hero-3d-container {
+            width: 100%;
+            height: 400px;
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        #hero-canvas {
+            width: 100%;
+            height: 100%;
+            border-radius: 20px;
+            outline: none;
+        }
+        /* تصميم احتياطي فوري للوجو في حال لم يفتح مسار الصورة */
+        .logo-fallback {
+            font-size: 24px;
+            font-weight: bold;
+            color: #38bdf8;
+            text-shadow: 0 0 10px rgba(56, 189, 248, 0.6);
+            text-decoration: none;
+            letter-spacing: 1px;
+        }
+    </style>
 </head>
 
 <body>
@@ -24,22 +53,22 @@
     <nav class="navbar">
         <div class="logo">
             <a href="index.html">
-                <img src="images/logo.png" alt="HIK Dev Logo">
+                <!-- تم وضع دالة تصحيح تلقائي للصورة في حال اختلاف الامتداد -->
+                <img src="images/logo.png" alt="HIK Dev Logo" loading="lazy" onerror="this.onerror=null; this.src='images/logo.jpg'; this.onerror=function(){ this.replaceWith(Object.assign(document.createElement('a'), {href:'index.html', innerText:'HIK Dev', className:'logo-fallback'})); };">
             </a>
         </div>
 
         <ul style="list-style: none; display: flex; gap: 10px;">
-    <li><a href="index.html" class="nav-btn">الرئيسية</a></li>
-    <li><a href="services.html" class="nav-btn">الخدمات</a></li>
-    <li><a href="pricing.html" class="nav-btn">الباقات</a></li>
-    <li><a href="store.html" class="nav-btn">المتجر</a></li>
-    <li><a href="about.html" class="nav-btn">من نحن</a></li>
-    <li><a href="cv.html" class="nav-btn">تواصل معنا</a></li>
-</ul>
-
+            <li><a href="index.html" class="nav-btn">الرئيسية</a></li>
+            <li><a href="services.html" class="nav-btn">الخدمات</a></li>
+            <li><a href="pricing.html" class="nav-btn">الباقات</a></li>
+            <li><a href="store.html" class="nav-btn">المتجر</a></li>
+            <li><a href="about.html" class="nav-btn">من نحن</a></li>
+            <li><a href="cv.html" class="nav-btn">تواصل معنا</a></li>
+        </ul>
 
         <div>
-            <a href="contact.html" class="btn">ابدأ الآن</a>
+            <a href="store.html" class="btn">ابدأ الآن</a>
         </div>
     </nav>
 </header>
@@ -54,13 +83,16 @@
             وتطبيقات موبايل وسطح مكتب بجودة عالية وسرعة وأمان.
         </p>
         <div class="hero-buttons">
-            <a href="contact.html" class="btn">ابدأ مشروعك</a>
+            <a href="store.html" class="btn">ابدأ مشروعك</a>
             <a href="portfolio.html" class="btn">أعمالنا</a>
         </div>
     </div>
 
+    <!-- أنيميشن الـ 3D التفاعلي -->
     <div class="hero-image">
-        <img src="images/hero.png" alt="Hero Image">
+        <div class="hero-3d-container">
+            <canvas id="hero-canvas"></canvas>
+        </div>
     </div>
 </section>
 
@@ -101,49 +133,37 @@
         <div class="service-card">
             <i class="fa-solid fa-laptop-code"></i>
             <h3>تصميم مواقع</h3>
-            <p>
-                مواقع احترافية متجاوبة مع جميع الأجهزة.
-            </p>
+            <p>مواقع احترافية متجاوبة مع جميع الأجهزة.</p>
         </div>
 
         <div class="service-card">
             <i class="fa-solid fa-cart-shopping"></i>
             <h3>متاجر إلكترونية</h3>
-            <p>
-                متجر كامل مع الدفع وإدارة المنتجات والطلبات.
-            </p>
+            <p>متجر كامل مع الدفع وإدارة المنتجات والطلبات.</p>
         </div>
 
         <div class="service-card">
             <i class="fa-solid fa-mobile-screen-button"></i>
             <h3>تطبيقات موبايل</h3>
-            <p>
-                تطبيقات Android سهلة وسريعة.
-            </p>
+            <p>تطبيقات Android سهلة وسريعة.</p>
         </div>
 
         <div class="service-card">
             <i class="fa-solid fa-desktop"></i>
             <h3>برامج سطح مكتب</h3>
-            <p>
-                أنظمة إدارة للمحلات والشركات.
-            </p>
+            <p>أنظمة إدارة للمحلات والشركات.</p>
         </div>
 
         <div class="service-card">
             <i class="fa-solid fa-server"></i>
             <h3>Backend</h3>
-            <p>
-                برمجة السيرفر وقواعد البيانات وAPI.
-            </p>
+            <p>برمجة السيرفر وقواعد البيانات وAPI.</p>
         </div>
 
         <div class="service-card">
             <i class="fa-solid fa-shield-halved"></i>
             <h3>الحماية</h3>
-            <p>
-                تأمين الموقع ضد أشهر الهجمات.
-            </p>
+            <p>تأمين الموقع ضد أشهر الهجمات.</p>
         </div>
     </div>
 </section>
@@ -159,30 +179,22 @@
     <div class="why-container">
         <div class="why-box">
             <h3>⚡ سرعة</h3>
-            <p>
-                نهتم بسرعة تحميل الموقع للحصول على أفضل تجربة.
-            </p>
+            <p>نهتم بسرعة تحميل الموقع للحصول على أفضل تجربة.</p>
         </div>
 
         <div class="why-box">
             <h3>🔒 أمان</h3>
-            <p>
-                حماية قوية وقواعد بيانات آمنة.
-            </p>
+            <p>حماية قوية وقواعد بيانات آمنة.</p>
         </div>
 
         <div class="why-box">
             <h3>📱 Responsive</h3>
-            <p>
-                يعمل على الهاتف والتابلت والكمبيوتر.
-            </p>
+            <p>يعمل على الهاتف والتابلت والكمبيوتر.</p>
         </div>
 
         <div class="why-box">
             <h3>🎨 تصميم حديث</h3>
-            <p>
-                تصميمات عصرية تناسب الهوية البصرية.
-            </p>
+            <p>تصميمات عصرية تناسب الهوية البصرية.</p>
         </div>
     </div>
 </section>
@@ -228,36 +240,28 @@
 <section class="portfolio">
     <div class="section-title">
         <h2>أحدث أعمالنا</h2>
-        <p>
-            بعض المشاريع التي قمنا بتنفيذها
-        </p>
+        <p>بعض المشاريع التي قمنا بتنفيذها</p>
     </div>
 
     <div class="portfolio-container">
         <div class="project">
-            <img src="images/project1.jpg" alt="متجر إلكتروني">
+            <img src="images/project1.jpg" alt="متجر إلكتروني" loading="lazy">
             <h3>متجر إلكتروني</h3>
-            <p>
-                متجر احترافي مع لوحة تحكم كاملة.
-            </p>
+            <p>متجر احترافي مع لوحة تحكم كاملة.</p>
             <a href="portfolio.html" class="btn-project">عرض المشروع</a>
         </div>
 
         <div class="project">
-            <img src="images/project2.jpg" alt="شركة عقارات">
+            <img src="images/project2.jpg" alt="شركة عقارات" loading="lazy">
             <h3>شركة عقارات</h3>
-            <p>
-                موقع احترافي لعرض العقارات.
-            </p>
+            <p>موقع احترافي لعرض العقارات.</p>
             <a href="portfolio.html" class="btn-project">عرض المشروع</a>
         </div>
 
         <div class="project">
-            <img src="images/project3.jpg" alt="مطعم">
+            <img src="images/project3.jpg" alt="مطعم" loading="lazy">
             <h3>مطعم</h3>
-            <p>
-                موقع طلبات أونلاين.
-            </p>
+            <p>موقع طلبات أونلاين.</p>
             <a href="portfolio.html" class="btn-project">عرض المشروع</a>
         </div>
     </div>
@@ -269,9 +273,7 @@
 <section class="pricing">
     <div class="section-title">
         <h2>الباقات</h2>
-        <p>
-            اختر الباقة المناسبة لك
-        </p>
+        <p>اختر الباقة المناسبة لك</p>
     </div>
 
     <div class="pricing-container">
@@ -284,7 +286,7 @@
                 <li>Responsive</li>
                 <li>واتساب</li>
             </ul>
-            <a href="contact.html" class="btn-price">اطلب الآن</a>
+            <a href="store.html" class="btn-price">اطلب الآن</a>
         </div>
 
         <div class="price-card popular">
@@ -297,7 +299,7 @@
                 <li>نظام طلبات</li>
                 <li>SEO</li>
             </ul>
-            <a href="contact.html" class="btn-price">اطلب الآن</a>
+            <a href="store.html" class="btn-price">اطلب الآن</a>
         </div>
 
         <div class="price-card">
@@ -310,7 +312,7 @@
                 <li>دعم فني</li>
                 <li>ربط الدفع</li>
             </ul>
-            <a href="contact.html" class="btn-price">اطلب الآن</a>
+            <a href="store.html" class="btn-price">اطلب الآن</a>
         </div>
     </div>
 </section>
@@ -326,23 +328,17 @@
     <div class="testimonial-container">
         <div class="testimonial">
             <h3>محمد أحمد</h3>
-            <p>
-                أفضل تجربة تعامل، سرعة في التنفيذ وجودة ممتازة.
-            </p>
+            <p>أفضل تجربة تعامل، سرعة في التنفيذ وجودة ممتازة.</p>
         </div>
 
         <div class="testimonial">
             <h3>أحمد علي</h3>
-            <p>
-                الموقع فاق توقعاتي والدعم الفني ممتاز.
-            </p>
+            <p>الموقع فاق توقعاتي والدعم الفني ممتاز.</p>
         </div>
 
         <div class="testimonial">
             <h3>شركة ABC</h3>
-            <p>
-                تعامل احترافي والتزام كامل بالمواعيد.
-            </p>
+            <p>تعامل احترافي والتزام كامل بالمواعيد.</p>
         </div>
     </div>
 </section>
@@ -398,10 +394,8 @@
 ========================== -->
 <section class="cta">
     <h2>هل لديك فكرة مشروع؟</h2>
-    <p>
-        دعنا نحول فكرتك إلى موقع أو تطبيق احترافي.
-    </p>
-    <a href="contact.html" class="btn">ابدأ الآن</a>
+    <p>دعنا نحول فكرتك إلى موقع أو تطبيق احترافي.</p>
+    <a href="store.html" class="btn">ابدأ الآن</a>
 </section>
 
 <!-- =========================
@@ -412,12 +406,10 @@
         <div>
             <div class="logo">
                 <a href="index.html">
-                    <img src="images/logo.png" alt="HIK Dev Logo">
+                    <img src="images/logo.png" alt="HIK Dev Logo" loading="lazy" onerror="this.onerror=null; this.src='images/logo.jpg'; this.onerror=function(){ this.replaceWith(Object.assign(document.createElement('a'), {href:'index.html', innerText:'HIK Dev', className:'logo-fallback'})); };">
                 </a>
             </div>
-            <p>
-                نصمم مواقع إلكترونية ومتاجر وتطبيقات احترافية.
-            </p>
+            <p>نصمم مواقع إلكترونية ومتاجر وتطبيقات احترافية.</p>
         </div>
 
         <div>
@@ -435,8 +427,8 @@
         <div>
             <h3>التواصل</h3>
             <p>📞 0125093884</p>
-            <p>📞01159001888</p>
-            <p>📞01066517988</p>
+            <p>📞 01159001888</p>
+            <p>📞 01066517988</p>
             <p>📧 HIKDEV3@gmail.com</p>
             <p>📍 القاهرة - مصر</p>
         </div>
@@ -450,9 +442,82 @@
 </footer>
 
 <!-- زر الرجوع لأعلى -->
-<button id="topButton">
+<button id="topButton" title="الرجوع للأعلى" style="display: none; position: fixed; bottom: 20px; left: 20px; z-index: 999; background: #38bdf8; color: #000; border: none; padding: 10px 15px; border-radius: 50%; font-size: 18px; cursor: pointer; box-shadow: 0 4px 10px rgba(0,0,0,0.3);">
     ↑
 </button>
+
+<script>
+    // --- برمجة زر الصعود للأعلى ---
+    const topButton = document.getElementById("topButton");
+
+    window.onscroll = function () {
+        if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
+            topButton.style.display = "block";
+        } else {
+            topButton.style.display = "none";
+        }
+    };
+
+    topButton.onclick = function () {
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+        });
+    };
+
+    // --- أنيميشن الـ 3D التفاعلي ---
+    const canvas = document.getElementById('hero-canvas');
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(75, canvas.clientWidth / canvas.clientHeight, 0.1, 1000);
+    const renderer = new THREE.WebGLRenderer({ canvas: canvas, alpha: true, antialias: true });
+
+    renderer.setSize(canvas.clientWidth, canvas.clientHeight);
+    renderer.setPixelRatio(window.devicePixelRatio);
+
+    const geometry = new THREE.BoxGeometry(2.2, 2.2, 2.2);
+    const material = new THREE.MeshStandardMaterial({ 
+        color: 0x38bdf8, 
+        wireframe: true,
+        roughness: 0.2,
+        metalness: 0.8
+    });
+    const cube = new THREE.Mesh(geometry, material);
+    scene.add(cube);
+
+    const ambientLight = new THREE.AmbientLight(0xffffff, 1);
+    scene.add(ambientLight);
+
+    const pointLight = new THREE.PointLight(0xfbbf24, 2);
+    pointLight.position.set(5, 5, 5);
+    scene.add(pointLight);
+
+    camera.position.z = 5;
+
+    let mouseX = 0;
+    let mouseY = 0;
+
+    document.addEventListener('mousemove', (event) => {
+        mouseX = (event.clientX / window.innerWidth) - 0.5;
+        mouseY = (event.clientY / window.innerHeight) - 0.5;
+    });
+
+    function animate() {
+        requestAnimationFrame(animate);
+        cube.rotation.x += 0.005 + (mouseY * 0.5);
+        cube.rotation.y += 0.007 + (mouseX * 0.5);
+        renderer.render(scene, camera);
+    }
+
+    animate();
+
+    window.addEventListener('resize', () => {
+        const width = canvas.parentElement.clientWidth;
+        const height = canvas.parentElement.clientHeight;
+        camera.aspect = width / height;
+        camera.updateProjectionMatrix();
+        renderer.setSize(width, height);
+    });
+</script>
 
 </body>
 </html>
