@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ar" dir="rtl">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>IK DEV - 3D Interactive Card</title>
+<title>HIK DEV - 3D Interactive Card</title>
 
 <!-- Font Awesome Icons -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
@@ -208,7 +208,7 @@ h1 span.divider-dot {
 }
 
 .btn-details {
-    text-align: left;
+    text-align: right;
 }
 
 .btn-details b {
@@ -230,7 +230,7 @@ h1 span.divider-dot {
 }
 
 .btn-capsule:hover .arrow-icon {
-    transform: translateX(5px);
+    transform: translateX(-5px);
     color: #fff;
 }
 
@@ -334,6 +334,116 @@ button.cancel-btn {
     opacity: 1;
 }
 
+/* تنسيقات الشات بوت الذكي العائم (في اليمين تحت) */
+#ai-toggle {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    width: 60px;
+    height: 60px;
+    background: linear-gradient(135deg, #38bdf8, #0284c7);
+    color: #030712;
+    border: none;
+    border-radius: 50%;
+    font-size: 1.5rem;
+    cursor: pointer;
+    box-shadow: 0 0 25px rgba(56, 189, 248, 0.6);
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: 0.3s;
+}
+#ai-toggle:hover {
+    transform: scale(1.1);
+}
+.ai-window {
+    position: fixed;
+    bottom: 105px;
+    right: 30px;
+    width: 340px;
+    height: 420px;
+    background: rgba(11, 17, 32, 0.95);
+    border-radius: 20px;
+    border: 1px solid rgba(56, 189, 248, 0.4);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.8);
+    display: none;
+    flex-direction: column;
+    z-index: 9999;
+    backdrop-filter: blur(15px);
+    overflow: hidden;
+    text-align: right;
+}
+.ai-header {
+    background: #0f172a;
+    padding: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid rgba(56, 189, 248, 0.2);
+    font-weight: bold;
+    color: #38bdf8;
+}
+.ai-header button {
+    background: none;
+    border: none;
+    color: #fff;
+    cursor: pointer;
+    font-size: 1.1rem;
+}
+.ai-body {
+    flex: 1;
+    padding: 15px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    font-size: 0.9rem;
+}
+.msg {
+    padding: 10px 14px;
+    border-radius: 12px;
+    max-width: 85%;
+    line-height: 1.4;
+}
+.msg-bot {
+    background: rgba(56, 189, 248, 0.1);
+    color: #cbd5e1;
+    align-self: flex-start;
+    border: 1px solid rgba(56, 189, 248, 0.2);
+}
+.msg-user {
+    background: #38bdf8;
+    color: #030712;
+    font-weight: bold;
+    align-self: flex-end;
+}
+.ai-footer {
+    display: flex;
+    padding: 10px;
+    background: #030712;
+    border-top: 1px solid rgba(56, 189, 248, 0.15);
+    gap: 8px;
+}
+.ai-footer input {
+    flex: 1;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(56, 189, 248, 0.3);
+    padding: 10px;
+    border-radius: 10px;
+    color: #fff;
+    outline: none;
+}
+.ai-footer button {
+    background: #38bdf8;
+    border: none;
+    color: #030712;
+    padding: 0 15px;
+    border-radius: 10px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
 </style>
 </head>
 
@@ -389,7 +499,7 @@ button.cancel-btn {
                     <small>Visit official site</small>
                 </div>
             </div>
-            <i class="fa-solid fa-chevron-right arrow-icon"></i>
+            <i class="fa-solid fa-chevron-left arrow-icon"></i>
         </div>
 
         <!-- 2. WhatsApp -->
@@ -401,7 +511,7 @@ button.cancel-btn {
                     <small>Chat with us</small>
                 </div>
             </div>
-            <i class="fa-solid fa-chevron-right arrow-icon"></i>
+            <i class="fa-solid fa-chevron-left arrow-icon"></i>
         </div>
 
         <!-- 3. Instagram -->
@@ -413,7 +523,7 @@ button.cancel-btn {
                     <small>Follow us</small>
                 </div>
             </div>
-            <i class="fa-solid fa-chevron-right arrow-icon"></i>
+            <i class="fa-solid fa-chevron-left arrow-icon"></i>
         </div>
 
         <!-- 4. Call Us -->
@@ -425,7 +535,7 @@ button.cancel-btn {
                     <small>Click to call</small>
                 </div>
             </div>
-            <i class="fa-solid fa-chevron-right arrow-icon"></i>
+            <i class="fa-solid fa-chevron-left arrow-icon"></i>
         </div>
 
     </div>
@@ -446,7 +556,7 @@ button.cancel-btn {
                 <b>Business 1</b><br>
                 <small style="color:#888;">010 665 17988</small>
             </div>
-            <i class="fa-solid fa-chevron-right" style="color:#25D366"></i>
+            <i class="fa-solid fa-chevron-left" style="color:#25D366"></i>
         </a>
 
         <a class="number" href="https://api.whatsapp.com/send?phone=201125093884" target="_blank">
@@ -454,7 +564,7 @@ button.cancel-btn {
                 <b>Business 2</b><br>
                 <small style="color:#888;">011 250 93884</small>
             </div>
-            <i class="fa-solid fa-chevron-right" style="color:#25D366"></i>
+            <i class="fa-solid fa-chevron-left" style="color:#25D366"></i>
         </a>
 
         <button class="cancel-btn" onclick="closeModal('modalWhatsApp')">Cancel</button>
@@ -472,7 +582,7 @@ button.cancel-btn {
                 <b>IK Dev Official</b><br>
                 <small style="color:#888;">@ik.dev.eg</small>
             </div>
-            <i class="fa-solid fa-chevron-right" style="color:#E1306C"></i>
+            <i class="fa-solid fa-chevron-left" style="color:#E1306C"></i>
         </a>
 
         <button class="cancel-btn" onclick="closeModal('modalInstagram')">Cancel</button>
@@ -490,7 +600,7 @@ button.cancel-btn {
                 <b>Line 1</b><br>
                 <small style="color:#888;">010 665 17988</small>
             </div>
-            <i class="fa-solid fa-chevron-right" style="color:#eab308"></i>
+            <i class="fa-solid fa-chevron-left" style="color:#eab308"></i>
         </div>
 
         <div class="number" onclick="safeCall('01125093884')">
@@ -498,18 +608,72 @@ button.cancel-btn {
                 <b>Line 2</b><br>
                 <small style="color:#888;">011 250 93884</small>
             </div>
-            <i class="fa-solid fa-chevron-right" style="color:#eab308"></i>
+            <i class="fa-solid fa-chevron-left" style="color:#eab308"></i>
         </div>
 
         <button class="cancel-btn" onclick="closeModal('modalCall')">Cancel</button>
     </div>
 </div>
 
+<!-- زر الشات بوت العائم (في اليمين تحت) -->
+<button id="ai-toggle" onclick="toggleChat()">
+    <i class="fa-solid fa-comments"></i>
+</button>
+
+<!-- نافذة الشات الذكي (في اليمين تحت) -->
+<div class="ai-window" id="aiWindow">
+    <div class="ai-header">
+        <span>مساعد HIK الذكي</span>
+        <button onclick="toggleChat()"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+    <div class="ai-body" id="aiBody">
+        <div class="msg msg-bot">أهلاً بك في HIK Dev! يمكنك زيارة <a href="https://karimmohammedkadry-alt.github.io/HIK-DEV/" target="_blank" style="color:#38bdf8; font-weight:bold;">موقعنا الرسمي</a> لمعرفة المزيد عن خدماتنا. كيف يمكننا مساعدتك اليوم؟</div>
+    </div>
+    <div class="ai-footer">
+        <input type="text" id="userInput" placeholder="اكتب رسالتك..." onkeypress="handleEnter(event)">
+        <button onclick="sendMessage()">إرسال</button>
+    </div>
+</div>
+
 <script>
 
-function openMyWebsite() { window.location.href = "index.html"; }
+function openMyWebsite() { 
+    window.location.href = "https://karimmohammedkadry-alt.github.io/HIK-DEV/"; 
+}
 function openModal(id){ document.getElementById(id).style.display = "flex"; }
 function closeModal(id){ document.getElementById(id).style.display = "none"; }
+
+/* --- برمجة الشات بوت الذكي --- */
+function toggleChat() {
+    const win = document.getElementById('aiWindow');
+    win.style.display = (win.style.display === 'flex') ? 'none' : 'flex';
+}
+
+function sendMessage() {
+    const input = document.getElementById('userInput');
+    const body = document.getElementById('aiBody');
+    if(input.value.trim() === '') return;
+
+    const userDiv = document.createElement('div');
+    userDiv.className = 'msg msg-user';
+    userDiv.innerText = input.value;
+    body.appendChild(userDiv);
+
+    input.value = '';
+    body.scrollTop = body.scrollHeight;
+
+    setTimeout(() => {
+        const botDiv = document.createElement('div');
+        botDiv.className = 'msg msg-bot';
+        botDiv.innerHTML = 'يسعدنا جداً تواصلك معنا! يمكنك زيارة <a href="https://karimmohammedkadry-alt.github.io/HIK-DEV/" target="_blank" style="color:#38bdf8; font-weight:bold;">موقعنا الرسمي</a> أو التواصل معنا عبر الأزرار المتاحة.';
+        body.appendChild(botDiv);
+        body.scrollTop = body.scrollHeight;
+    }, 600);
+}
+
+function handleEnter(e) {
+    if(e.key === 'Enter') sendMessage();
+}
 
 /* 2-Second Logo Animation & Explosive Fireworks Function */
 function animateLogo2Sec(e) {

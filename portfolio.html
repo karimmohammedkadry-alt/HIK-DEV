@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HIK DEV | عالم الابتكار الثلاثي الأبعاد</title>
+    <!-- مكتبة الأيقونات والخطوط -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- ربط ملف الـ CSS الخارجي -->
+    <link rel="stylesheet" href="style10.css">
+    <style>
+        /* تنسيقات إضافية للشات بوت وزر الصعود للأعلى */
+        .ai-chat-section {
+            padding: 60px 8%;
+            background: rgba(11, 19, 41, 0.5);
+            margin: 40px 0;
+            border-top: 1px solid rgba(0, 242, 254, 0.2);
+            border-bottom: 1px solid rgba(0, 242, 254, 0.2);
+        }
+        .chat-container {
+            max-width: 700px;
+            margin: 0 auto;
+            background: rgba(15, 23, 42, 0.95);
+            border-radius: 20px;
+            border: 1px solid rgba(0, 242, 254, 0.4);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.6);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            height: 420px;
+        }
+        .chat-header {
+            background: linear-gradient(135deg, #0b1329, #1c2a59);
+            padding: 15px 20px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            border-bottom: 1px solid rgba(0, 242, 254, 0.2);
+        }
+        .chat-header i {
+            font-size: 1.5rem;
+            color: #00f2fe;
+        }
+        .chat-header span {
+            font-weight: bold;
+            color: #fff;
+            font-size: 1.1rem;
+        }
+        .chat-body {
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        .message {
+            padding: 12px 16px;
+            border-radius: 12px;
+            max-width: 80%;
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+        .bot-message {
+            background: rgba(0, 242, 254, 0.1);
+            color: #cbd5e1;
+            border: 1px solid rgba(0, 242, 254, 0.2);
+            align-self: flex-start;
+        }
+        .user-message {
+            background: #00f2fe;
+            color: #030712;
+            font-weight: bold;
+            align-self: flex-end;
+        }
+        .chat-footer {
+            display: flex;
+            padding: 15px;
+            background: #030712;
+            border-top: 1px solid rgba(255,255,255,0.05);
+            gap: 10px;
+        }
+        .chat-footer input {
+            flex: 1;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(0, 242, 254, 0.3);
+            padding: 12px 15px;
+            border-radius: 10px;
+            color: #fff;
+            outline: none;
+            font-family: 'Cairo', sans-serif;
+        }
+        .chat-footer input:focus {
+            border-color: #00f2fe;
+            box-shadow: 0 0 10px rgba(0, 242, 254, 0.3);
+        }
+        .chat-footer button {
+            background: linear-gradient(135deg, #00f2fe, #4facfe);
+            border: none;
+            color: #030712;
+            padding: 0 20px;
+            border-radius: 10px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .chat-footer button:hover {
+            box-shadow: 0 0 15px #00f2fe;
+        }
+
+        /* زر الصعود للأعلى */
+        #scrollTopBtn {
+            position: fixed;
+            bottom: 30px;
+            left: 30px;
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #00f2fe, #4facfe);
+            color: #030712;
+            border: none;
+            border-radius: 50%;
+            font-size: 1.2rem;
+            cursor: pointer;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 0 20px rgba(0, 242, 254, 0.6);
+            z-index: 9999;
+            transition: 0.3s;
+        }
+        #scrollTopBtn:hover {
+            transform: scale(1.1);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- الخلفية المتحركة والنيون الثلاثية الأبعاد -->
+    <div class="animated-bg">
+        <div class="glow-orb"></div>
+        <div class="glow-orb"></div>
+    </div>
+
+    <!-- شريط التنقل العلوي الاحترافي -->
+    <header class="navbar" id="navbar">
+        <div class="logo-container">
+            <img src="1000034327_3.jpg" alt="HIK DEV Logo" class="nav-logo" onerror="this.src='https://via.placeholder.com/45?text=HIK'">
+            <span>HIK DEV</span>
+        </div>
+        <nav>
+            <ul class="nav-links">
+                <li><a href="index.html" class="active">الرئيسية</a></li>
+                <li><a href="works.html">معرض الأعمال</a></li>
+                <li><a href="#systems">الأنظمة واللغات</a></li>
+                <li><a href="#footer-section">تواصل معنا</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- قسم العنوان الترحيبي -->
+    <section class="portfolio-hero" id="hero">
+        <div class="hero-content">
+            <h1>عالم الابتكار والتصميم الثلاثي الأبعاد</h1>
+            <p>أهلاً بك في منصة HIK DEV الرسمية. استعرض أحدث مشاريعنا البرمجية والتصميمية الفائقة بأفضل تجربة بصرية وتفاعلية.</p>
+        </div>
+    </section>
+
+    <!-- قسم شات بوت الذكاء الاصطناعي في الصفحة الرئيسية -->
+    <section class="ai-chat-section" id="ai-bot">
+        <h2 style="text-align: center; color: #00f2fe; margin-bottom: 30px;">تحدث مع مساعد HIK AI الذكي</h2>
+        <div class="chat-container">
+            <div class="chat-header">
+                <i class="fa-solid fa-robot"></i>
+                <span>مساعد HIK الافتراضي</span>
+            </div>
+            <div class="chat-body" id="chatBody">
+                <div class="message bot-message">أهلاً بك يا صديقي! أنا مساعد الذكاء الاصطناعي الخاص بـ HIK DEV. اسألني عن أي شيء يخص البرمجة أو خدماتنا!</div>
+            </div>
+            <div class="chat-footer">
+                <input type="text" id="userInput" placeholder="اكتب رسالتك هنا..." onkeypress="handleKeyPress(event)">
+                <button onclick="sendMessage()">إرسال</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- قسم مشاريع البرمجة والأنظمة -->
+    <section class="section-container" id="systems">
+        <h2>مشاريع الأنظمة واللغات البرمجية</h2>
+        <div class="grid-3d">
+            
+            <!-- مشروع بايثون -->
+            <div class="card-3d code-project" style="position: relative;">
+                <span class="project-badge python">Python</span>
+                <div class="mockup-screen">
+                    <i class="fa-brands fa-python system-icon"></i>
+                </div>
+                <h3>نظام تحليل البيانات الذكي</h3>
+                <p>خوارزميات معالجة بيانات سريعة مدعومة بأقوى مكتبات بايثون.</p>
+                <div class="tech-tags">
+                    <span>Flask</span>
+                    <span>Pandas</span>
+                    <span>API</span>
+                </div>
+            </div>
+
+            <!-- مشروع جافاسكريبت -->
+            <div class="card-3d code-project" style="position: relative;">
+                <span class="project-badge js">JavaScript</span>
+                <div class="mockup-screen">
+                    <i class="fa-brands fa-js system-icon"></i>
+                </div>
+                <h3>منصة واجهات تفاعلية 3D</h3>
+                <p>تطبيقات ويب ديناميكية بتجارب بصرية مذهلة وحركات انسيابية.</p>
+                <div class="tech-tags">
+                    <span>React</span>
+                    <span>Three.js</span>
+                    <span>Node.js</span>
+                </div>
+            </div>
+
+            <!-- مشروع سي بلس بلس -->
+            <div class="card-3d code-project" style="position: relative;">
+                <span class="project-badge cpp">C++</span>
+                <div class="mockup-screen">
+                    <i class="fa-solid fa-microchip system-icon"></i>
+                </div>
+                <h3>محرك معالجة الأداء العالي</h3>
+                <p>أنظمة سطح مكتب مبرمجة لتحقيق أقصى سرعة وكفاءة معالجة.</p>
+                <div class="tech-tags">
+                    <span>OOP</span>
+                    <span>Algorithms</span>
+                    <span>Desktop</span>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- زر الصعود للأعلى -->
+    <button id="scrollTopBtn" onclick="scrollToTop()" title="العودة للأعلى">
+        <i class="fa-solid fa-arrow-up"></i>
+    </button>
+
+    <!-- التذييل وقسم التواصل -->
+    <footer class="footer" id="footer-section">
+        <p style="margin-bottom: 10px; color: #00f2fe; font-size: 1.1rem; font-weight: bold;">تواصل معنا عبر البريد أو منصات التواصل الاجتماعي</p>
+        <p>جميع الحقوق محفوظة لصالح **HIK DEV** &copy; 2026</p>
+    </footer>
+
+    <!-- سكريبت التفاعل (الصعود للأعلى + الشات بوت) -->
+    <script>
+        // إظهار وإخفاء زر الصعود للأعلى عند التمرير
+        const scrollBtn = document.getElementById("scrollTopBtn");
+        window.onscroll = function() {
+            if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
+                scrollBtn.style.display = "flex";
+            } else {
+                scrollBtn.style.display = "none";
+            }
+        };
+
+        function scrollToTop() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // تفاعل شات بوت الذكاء الاصطناعي
+        function sendMessage() {
+            const inputField = document.getElementById("userInput");
+            const chatBody = document.getElementById("chatBody");
+            const text = inputField.value.trim();
+
+            if (text === "") return;
+
+            // رسالة المستخدم
+            const userMsg = document.createElement("div");
+            userMsg.className = "message user-message";
+            userMsg.innerText = text;
+            chatBody.appendChild(userMsg);
+
+            inputField.value = "";
+            chatBody.scrollTop = chatBody.scrollHeight;
+
+            // رد بوت ذكي تلقائي
+            setTimeout(() => {
+                const botMsg = document.createElement("div");
+                botMsg.className = "message bot-message";
+                
+                if (text.includes("سعر") || text.includes("تكلفة")) {
+                    botMsg.innerText = "تكلفة المشاريع تعتمد على تفاصيل المشروع ومتطلباتك، تواصل معنا عبر قسم التواصل بالأسفل لنساعدك!";
+                } else if (text.includes("أعمال") || text.includes("مشاريع")) {
+                    botMsg.innerText = "يمكنك الانتقال إلى صفحة 'معرض الأعمال' من الشريط العلوي لاستعراض أحدث تصاميمنا ومشاريعنا!";
+                } else {
+                    botMsg.innerText = "أهلاً بك! فريق HIK DEV يعمل دائماً على تقديم أفضل الحلول البرمجية والتقنية لك.";
+                }
+
+                chatBody.appendChild(botMsg);
+                chatBody.scrollTop = chatBody.scrollHeight;
+            }, 800);
+        }
+
+        function handleKeyPress(e) {
+            if (e.key === "Enter") {
+                sendMessage();
+            }
+        }
+    </script>
+</body>
+</html>

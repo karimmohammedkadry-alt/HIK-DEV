@@ -1,0 +1,421 @@
+/* إعدادات عامة وتنسيق الخطوط */
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Cairo', sans-serif;
+}
+
+body {
+    background-color: #050b18;
+    color: #ffffff;
+    overflow-x: hidden;
+    perspective: 1200px;
+}
+
+/* خلفية متحركة 3D ثلاثية الأبعاد (أنيميشن الأجرام المضيئة) */
+.animated-bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: -2;
+    overflow: hidden;
+    background: radial-gradient(circle at 50% 50%, #0b1329 0%, #030712 100%);
+}
+
+.glow-orb {
+    position: absolute;
+    width: 450px;
+    height: 450px;
+    background: radial-gradient(circle, rgba(0, 242, 254, 0.15) 0%, rgba(79, 172, 254, 0) 70%);
+    border-radius: 50%;
+    filter: blur(60px);
+    animation: floatOrb 12s infinite alternate ease-in-out;
+    pointer-events: none;
+}
+
+.glow-orb:nth-child(2) {
+    top: 60%;
+    left: 70%;
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, rgba(112, 0, 255, 0.12) 0%, rgba(0, 0, 0, 0) 70%);
+    animation-duration: 18s;
+    animation-direction: alternate-reverse;
+}
+
+@keyframes floatOrb {
+    0% { transform: translate(0, 0) scale(1); }
+    50% { transform: translate(80px, -120px) scale(1.15); }
+    100% { transform: translate(-60px, 100px) scale(0.9); }
+}
+
+/* شريط التنقل العلوي الثابت مع زجاج متطور */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 50px;
+    background: rgba(11, 19, 41, 0.85);
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+    border-bottom: 1px solid rgba(0, 242, 254, 0.2);
+    backdrop-filter: blur(15px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+.logo-container {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.nav-logo {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #00f2fe;
+    box-shadow: 0 0 20px rgba(0, 242, 254, 0.8);
+    animation: pulseLogo 3s infinite;
+}
+
+@keyframes pulseLogo {
+    0%, 100% { box-shadow: 0 0 10px rgba(0, 242, 254, 0.4); }
+    50% { box-shadow: 0 0 25px rgba(0, 242, 254, 0.9); }
+}
+
+.logo-container span {
+    font-weight: 900;
+    font-size: 1.3rem;
+    background: linear-gradient(45deg, #00f2fe, #4facfe);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    letter-spacing: 1px;
+}
+
+.nav-links {
+    list-style: none;
+    display: flex;
+    gap: 30px;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: #cbd5e1;
+    font-weight: 600;
+    position: relative;
+    transition: 0.3s;
+}
+
+.nav-links a::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: -5px;
+    right: 0;
+    background: #00f2fe;
+    transition: width 0.3s ease;
+}
+
+.nav-links a:hover::after, .nav-links a.active::after {
+    width: 100%;
+    left: 0;
+}
+
+.nav-links a:hover, .nav-links a.active {
+    color: #00f2fe;
+    text-shadow: 0 0 12px rgba(0, 242, 254, 0.6);
+}
+
+/* قسم العنوان الترحيبي (Hero Section) مع أنيميشن الدخول */
+.portfolio-hero {
+    height: 60vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    background: radial-gradient(circle at center, rgba(28, 42, 89, 0.4) 0%, transparent 80%);
+    padding: 0 20px;
+    margin-top: 70px;
+    position: relative;
+}
+
+.hero-content {
+    animation: heroEntrance 1.2s cubic-bezier(0.1, 1, 0.1, 1) forwards;
+}
+
+@keyframes heroEntrance {
+    0% { opacity: 0; transform: translateY(40px) scale(0.95); }
+    100% { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.hero-content h1 {
+    font-size: 3rem;
+    font-weight: 900;
+    margin-bottom: 20px;
+    background: linear-gradient(45deg, #00f2fe, #4facfe, #00c6ff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: 0 10px 30px rgba(0, 242, 254, 0.2);
+}
+
+.hero-content p {
+    font-size: 1.2rem;
+    color: #94a3b8;
+    max-width: 750px;
+    margin: 0 auto;
+    line-height: 1.8;
+}
+
+/* حاويات الأقسام */
+.section-container {
+    padding: 60px 8%;
+}
+
+.section-container h2 {
+    font-size: 2rem;
+    margin-bottom: 40px;
+    color: #00f2fe;
+    border-right: 6px solid #00f2fe;
+    padding-right: 18px;
+    text-shadow: 0 0 15px rgba(0, 242, 254, 0.4);
+}
+
+/* شبكة البطاقات ثلاثية الأبعاد المتقدمة (3D Card Tilt Effect) */
+.grid-3d {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+}
+
+.card-3d {
+    background: rgba(15, 23, 42, 0.85);
+    border-radius: 20px;
+    padding: 22px;
+    border: 1px solid rgba(0, 242, 254, 0.15);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6);
+    transition: transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1), border-color 0.4s, box-shadow 0.4s;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    transform-style: preserve-3d;
+}
+
+.card-3d::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(0, 242, 254, 0.08), transparent);
+    transition: 0.6s;
+}
+
+.card-3d:hover::before {
+    left: 100%;
+}
+
+.card-3d:hover {
+    transform: translateY(-15px) rotateX(4deg) rotateY(-4deg);
+    border-color: #00f2fe;
+    box-shadow: 0 25px 50px rgba(0, 242, 254, 0.35);
+}
+
+/* حاوية الصور مع تأثير الزووم السلس */
+.img-container {
+    width: 100%;
+    height: 220px;
+    background: #030712;
+    border-radius: 12px;
+    overflow: hidden;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.card-3d img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.card-3d:hover img {
+    transform: scale(1.12);
+}
+
+.card-3d h3 {
+    font-size: 1.3rem;
+    margin-bottom: 10px;
+    color: #ffffff;
+    font-weight: 700;
+}
+
+.card-3d p {
+    font-size: 0.95rem;
+    color: #94a3b8;
+    line-height: 1.6;
+}
+
+/* شاشات محاكاة البرمجة المضيئة */
+.code-project {
+    cursor: default;
+}
+
+.mockup-screen {
+    height: 220px;
+    background: #030712;
+    border-radius: 12px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+    border: 1px dashed rgba(0, 242, 254, 0.4);
+    position: relative;
+    overflow: hidden;
+}
+
+.mockup-screen::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle, rgba(0, 242, 254, 0.05) 0%, transparent 70%);
+}
+
+.system-icon {
+    font-size: 4rem;
+    color: #00f2fe;
+    filter: drop-shadow(0 0 15px rgba(0, 242, 254, 0.7));
+    animation: floatIcon 3s ease-in-out infinite alternate;
+}
+
+@keyframes floatIcon {
+    0% { transform: translateY(0); }
+    100% { transform: translateY(-8px); }
+}
+
+.project-badge {
+    position: absolute;
+    top: 18px;
+    left: 18px;
+    padding: 6px 14px;
+    font-size: 0.75rem;
+    font-weight: bold;
+    border-radius: 20px;
+    color: #fff;
+    z-index: 2;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+}
+
+.project-badge.python { background: linear-gradient(135deg, #3776ab, #2b5b84); }
+.project-badge.js { background: linear-gradient(135deg, #f7df1e, #d4be10); color: #000; }
+.project-badge.cpp { background: linear-gradient(135deg, #00599c, #003e6d); }
+
+.tech-tags {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 18px;
+    flex-wrap: wrap;
+}
+
+.tech-tags span {
+    background: rgba(0, 242, 254, 0.08);
+    color: #00f2fe;
+    padding: 5px 12px;
+    font-size: 0.8rem;
+    border-radius: 8px;
+    border: 1px solid rgba(0, 242, 254, 0.25);
+    transition: 0.3s;
+}
+
+.tech-tags span:hover {
+    background: rgba(0, 242, 254, 0.2);
+    box-shadow: 0 0 10px rgba(0, 242, 254, 0.4);
+}
+
+/* تصميم نافذة العرض المنبثقة (Lightbox Modal) مع أنيميشن الفتح */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 2000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(3, 7, 18, 0.96);
+    backdrop-filter: blur(10px);
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    animation: fadeInModal 0.3s ease;
+}
+
+@keyframes fadeInModal {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.modal-content {
+    max-width: 88%;
+    max-height: 78vh;
+    border-radius: 15px;
+    border: 2px solid #00f2fe;
+    box-shadow: 0 0 40px rgba(0, 242, 254, 0.5);
+    object-fit: contain;
+    animation: zoomInModal 0.3s cubic-bezier(0.1, 1, 0.1, 1);
+}
+
+@keyframes zoomInModal {
+    from { transform: scale(0.85); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+}
+
+#caption {
+    margin-top: 25px;
+    text-align: center;
+    color: #00f2fe;
+    font-size: 1.4rem;
+    font-weight: bold;
+    text-shadow: 0 0 10px rgba(0, 242, 254, 0.4);
+}
+
+.close-btn {
+    position: absolute;
+    top: 30px;
+    right: 45px;
+    color: #ffffff;
+    font-size: 50px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.close-btn:hover {
+    color: #00f2fe;
+    transform: rotate(90deg);
+}
+
+/* التذييل العصري */
+.footer {
+    text-align: center;
+    padding: 30px;
+    background: #030712;
+    border-top: 1px solid rgba(0, 242, 254, 0.1);
+    color: #64748b;
+    margin-top: 60px;
+    font-size: 0.95rem;
+}

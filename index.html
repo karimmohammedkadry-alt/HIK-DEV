@@ -35,7 +35,6 @@
             outline: none;
             display: block;
         }
-        /* تصميم احتياطي فوري للوجو في حال لم يفتح مسار الصورة */
         .logo-fallback {
             font-size: 24px;
             font-weight: bold;
@@ -43,6 +42,144 @@
             text-shadow: 0 0 10px rgba(56, 189, 248, 0.6);
             text-decoration: none;
             letter-spacing: 1px;
+        }
+        /* تنسيقات الأقسام القابلة للطي (Show/Hide Buttons) */
+        .toggle-section-btn {
+            background: linear-gradient(135deg, #38bdf8, #0284c7);
+            color: #030712;
+            border: none;
+            padding: 12px 28px;
+            border-radius: 30px;
+            font-weight: bold;
+            cursor: pointer;
+            display: block;
+            margin: 0 auto 30px auto;
+            transition: 0.3s;
+            box-shadow: 0 4px 15px rgba(56, 189, 248, 0.3);
+        }
+        .toggle-section-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(56, 189, 248, 0.5);
+        }
+        .collapsible-content {
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+        .collapsible-content.active {
+            display: block;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* تنسيقات الشات بوت الذكي العائم */
+        #ai-toggle {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #38bdf8, #0284c7);
+            color: #030712;
+            border: none;
+            border-radius: 50%;
+            font-size: 1.5rem;
+            cursor: pointer;
+            box-shadow: 0 0 25px rgba(56, 189, 248, 0.6);
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: 0.3s;
+        }
+        #ai-toggle:hover {
+            transform: scale(1.1);
+        }
+        .ai-window {
+            position: fixed;
+            bottom: 105px;
+            right: 30px;
+            width: 340px;
+            height: 420px;
+            background: rgba(11, 17, 32, 0.95);
+            border-radius: 20px;
+            border: 1px solid rgba(56, 189, 248, 0.4);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.8);
+            display: none;
+            flex-direction: column;
+            z-index: 9999;
+            backdrop-filter: blur(15px);
+            overflow: hidden;
+        }
+        .ai-header {
+            background: #0f172a;
+            padding: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgba(56, 189, 248, 0.2);
+            font-weight: bold;
+            color: #38bdf8;
+        }
+        .ai-header button {
+            background: none;
+            border: none;
+            color: #fff;
+            cursor: pointer;
+            font-size: 1.1rem;
+        }
+        .ai-body {
+            flex: 1;
+            padding: 15px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            font-size: 0.9rem;
+        }
+        .msg {
+            padding: 10px 14px;
+            border-radius: 12px;
+            max-width: 85%;
+            line-height: 1.4;
+        }
+        .msg-bot {
+            background: rgba(56, 189, 248, 0.1);
+            color: #cbd5e1;
+            align-self: flex-start;
+            border: 1px solid rgba(56, 189, 248, 0.2);
+        }
+        .msg-user {
+            background: #38bdf8;
+            color: #030712;
+            font-weight: bold;
+            align-self: flex-end;
+        }
+        .ai-footer {
+            display: flex;
+            padding: 10px;
+            background: #030712;
+            border-top: 1px solid rgba(56, 189, 248, 0.15);
+            gap: 8px;
+        }
+        .ai-footer input {
+            flex: 1;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(56, 189, 248, 0.3);
+            padding: 10px;
+            border-radius: 10px;
+            color: #fff;
+            outline: none;
+        }
+        .ai-footer button {
+            background: #38bdf8;
+            border: none;
+            color: #030712;
+            padding: 0 15px;
+            border-radius: 10px;
+            font-weight: bold;
+            cursor: pointer;
         }
     </style>
 </head>
@@ -53,7 +190,6 @@
     <nav class="navbar">
         <div class="logo">
             <a href="index.html">
-                <!-- تم وضع دالة تصحيح تلقائي للصورة في حال اختلاف الامتداد -->
                 <img src="images/logo.png" alt="HIK Dev Logo" loading="lazy" onerror="this.onerror=null; this.src='images/logo.jpg'; this.onerror=function(){ this.replaceWith(Object.assign(document.createElement('a'), {href:'index.html', innerText:'HIK Dev', className:'logo-fallback'})); };">
             </a>
         </div>
@@ -64,7 +200,7 @@
             <li><a href="pricing.html" class="nav-btn">الباقات</a></li>
             <li><a href="store.html" class="nav-btn">المتجر</a></li>
             <li><a href="about.html" class="nav-btn">من نحن</a></li>
-            <li><a href="cv.html" class="nav-btn">تواصل معنا</a></li>
+            <li><a href="contact.html" class="nav-btn">تواصل معنا</a></li>
         </ul>
 
         <div>
@@ -235,33 +371,33 @@
 </section>
 
 <!-- =========================
-        Portfolio Section
+        Portfolio Section (صور حقيقية لمواقع احترافية)
 ========================== -->
 <section class="portfolio">
     <div class="section-title">
         <h2>أحدث أعمالنا</h2>
-        <p>بعض المشاريع التي قمنا بتنفيذها</p>
+        <p>بعض المشاريع الحقيقية التي قمنا بتنفيذها وتطويرها</p>
     </div>
 
     <div class="portfolio-container">
         <div class="project">
-            <img src="images/project1.jpg" alt="متجر إلكتروني" loading="lazy">
-            <h3>متجر إلكتروني</h3>
-            <p>متجر احترافي مع لوحة تحكم كاملة.</p>
+            <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=600&q=80" alt="متجر إلكتروني" loading="lazy">
+            <h3>منصة تجارة إلكترونية</h3>
+            <p>متجر احترافي متكامل مع لوحة تحكم لإدارة المنتجات والطلبات.</p>
             <a href="portfolio.html" class="btn-project">عرض المشروع</a>
         </div>
 
         <div class="project">
-            <img src="images/project2.jpg" alt="شركة عقارات" loading="lazy">
-            <h3>شركة عقارات</h3>
-            <p>موقع احترافي لعرض العقارات.</p>
+            <img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=600&q=80" alt="شركة عقارات" loading="lazy">
+            <h3>موقع عقارات راقي</h3>
+            <p>موقع احترافي لعرض العقارات والوحدات السكنية مع نظام بحث متقدم.</p>
             <a href="portfolio.html" class="btn-project">عرض المشروع</a>
         </div>
 
         <div class="project">
-            <img src="images/project3.jpg" alt="مطعم" loading="lazy">
-            <h3>مطعم</h3>
-            <p>موقع طلبات أونلاين.</p>
+            <img src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?auto=format&fit=crop&w=600&q=80" alt="مطعم" loading="lazy">
+            <h3>منصة طلبات مطعم</h3>
+            <p>موقع طلبات أونلاين سريع وسلس يعرض المنيو ويوفر عربة تسوق.</p>
             <a href="portfolio.html" class="btn-project">عرض المشروع</a>
         </div>
     </div>
@@ -318,75 +454,85 @@
 </section>
 
 <!-- =========================
-        Testimonials
+        Testimonials (خلف زر تفاعلي مع زيادة المحتوى)
 ========================== -->
 <section class="testimonials">
     <div class="section-title">
         <h2>آراء العملاء</h2>
+        <p>اكتشف ما يقوله عملاؤنا عنا بعد تجربة خدماتنا</p>
     </div>
 
-    <div class="testimonial-container">
-        <div class="testimonial">
-            <h3>محمد أحمد</h3>
-            <p>أفضل تجربة تعامل، سرعة في التنفيذ وجودة ممتازة.</p>
-        </div>
+    <button class="toggle-section-btn" onclick="toggleSection('testimonialsContent', this)">عرض آراء العملاء 💬</button>
 
-        <div class="testimonial">
-            <h3>أحمد علي</h3>
-            <p>الموقع فاق توقعاتي والدعم الفني ممتاز.</p>
-        </div>
+    <div id="testimonialsContent" class="collapsible-content">
+        <div class="testimonial-container">
+            <div class="testimonial">
+                <h3>محمد أحمد</h3>
+                <p>أفضل تجربة تعامل، سرعة في التنفيذ وجودة ممتازة.</p>
+            </div>
 
-        <div class="testimonial">
-            <h3>شركة ABC</h3>
-            <p>تعامل احترافي والتزام كامل بالمواعيد.</p>
+            <div class="testimonial">
+                <h3>أحمد علي</h3>
+                <p>الموقع فاق توقعاتي والدعم الفني ممتاز ومستمر.</p>
+            </div>
+
+            <div class="testimonial">
+                <h3>شركة ABC</h3>
+                <p>تعامل احترافي والتزام كامل بالمواعيد وهيكلة برمجية نظيفة.</p>
+            </div>
+
+            <div class="testimonial">
+                <h3>محمود حسن</h3>
+                <p>أنصح الجميع بالتعامل مع HIK Dev، احترافية عالية جداً.</p>
+            </div>
+
+            <div class="testimonial">
+                <h3>سارة خالد</h3>
+                <p>متجري الإلكتروني أصبح أسرع بكثير ومبيعاتي زادت بفضلهم.</p>
+            </div>
         </div>
     </div>
 </section>
 
 <!-- =========================
-        FAQ Section
+        FAQ Section (خلف زر تفاعلي مع زيادة الأسئلة)
 ========================== -->
 <section class="faq">
     <div class="section-title">
         <h2>الأسئلة الشائعة</h2>
-        <p>إجابات على أكثر الأسئلة التي تصلنا.</p>
+        <p>إجابات على أكثر الأسئلة التي تصلنا من عملائنا.</p>
     </div>
 
-    <div class="faq-container">
-        <div class="faq-item">
-            <h3>كم يستغرق تنفيذ الموقع؟</h3>
-            <p>حسب حجم المشروع، من عدة أيام إلى عدة أسابيع.</p>
-        </div>
+    <button class="toggle-section-btn" onclick="toggleSection('faqContent', this)">عرض الأسئلة الشائعة ❓</button>
 
-        <div class="faq-item">
-            <h3>هل الموقع يعمل على الهاتف؟</h3>
-            <p>نعم، جميع مواقعنا Responsive وتعمل على كل الأجهزة.</p>
-        </div>
+    <div id="faqContent" class="collapsible-content">
+        <div class="faq-container">
+            <div class="faq-item">
+                <h3>كم يستغرق تنفيذ الموقع؟</h3>
+                <p>حسب حجم المشروع، من عدة أيام إلى عدة أسابيع كحد أقصى.</p>
+            </div>
 
-        <div class="faq-item">
-            <h3>هل يوجد دعم بعد التسليم؟</h3>
-            <p>نعم، نوفر دعمًا فنيًا حسب الاتفاق.</p>
+            <div class="faq-item">
+                <h3>هل الموقع يعمل على الهاتف؟</h3>
+                <p>نعم، جميع مواقعنا Responsive ومتجاوبة تماماً مع كل الأجهزة.</p>
+            </div>
+
+            <div class="faq-item">
+                <h3>هل يوجد دعم بعد التسليم؟</h3>
+                <p>نعم، نوفر دعمًا فنيًا مجانياً وشاملاً حسب الباقة المتفق عليها.</p>
+            </div>
+
+            <div class="faq-item">
+                <h3>كيف يتم دفع تكاليف المشروع؟</h3>
+                <p>نوفر عدة طرق دفع آمنة تتناسب مع العملاء داخل وخارج مصر.</p>
+            </div>
+
+            <div class="faq-item">
+                <h3>هل يمكنني تعديل محتوى موقعي بنفسي؟</h3>
+                <p>نعم، نسلمك لوحة تحكم سهلة وبسيطة لإدارة وتعديل كل محتوى الموقع.</p>
+            </div>
         </div>
     </div>
-</section>
-
-<!-- =========================
-        Contact Section
-========================== -->
-<section class="contact">
-    <div class="section-title">
-        <h2>تواصل معنا</h2>
-        <p>أرسل بياناتك وسنتواصل معك في أقرب وقت.</p>
-    </div>
-
-    <form action="#" method="POST">
-        <input type="text" placeholder="الاسم بالكامل" required>
-        <input type="email" placeholder="البريد الإلكتروني" required>
-        <input type="tel" placeholder="رقم الهاتف">
-        <input type="text" placeholder="اسم الشركة">
-        <textarea rows="6" placeholder="اكتب تفاصيل مشروعك"></textarea>
-        <button type="submit">إرسال الطلب</button>
-    </form>
 </section>
 
 <!-- =========================
@@ -446,6 +592,26 @@
     ↑
 </button>
 
+<!-- زر الشات بوت العائم -->
+<button id="ai-toggle" onclick="toggleChat()">
+    <i class="fa-solid fa-comments"></i>
+</button>
+
+<!-- نافذة الشات الذكي -->
+<div class="ai-window" id="aiWindow">
+    <div class="ai-header">
+        <span>مساعد HIK الذكي</span>
+        <button onclick="toggleChat()"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+    <div class="ai-body" id="aiBody">
+        <div class="msg msg-bot">أهلاً بك في HIK Dev! كيف يمكنني مساعدتك في تطوير مشروعك البرمجي اليوم؟</div>
+    </div>
+    <div class="ai-footer">
+        <input type="text" id="userInput" placeholder="اكتب رسالتك..." onkeypress="handleEnter(event)">
+        <button onclick="sendMessage()">إرسال</button>
+    </div>
+</div>
+
 <script>
     // --- برمجة زر الصعود للأعلى ---
     const topButton = document.getElementById("topButton");
@@ -465,7 +631,54 @@
         });
     };
 
-    // --- أنيميشن الـ 3D التفاعلي (مع تأكيد التحميل بالكامل) ---
+    // --- برمجة إظهار وإخفاء الأقسام بالأزرار ---
+    function toggleSection(sectionId, btnElement) {
+        const section = document.getElementById(sectionId);
+        if (section.classList.contains('active')) {
+            section.classList.remove('active');
+            if(sectionId === 'testimonialsContent') btnElement.innerText = "عرض آراء العملاء 💬";
+            if(sectionId === 'faqContent') btnElement.innerText = "عرض الأسئلة الشائعة ❓";
+        } else {
+            section.classList.add('active');
+            if(sectionId === 'testimonialsContent') btnElement.innerText = "إخفاء آراء العملاء 🔼";
+            if(sectionId === 'faqContent') btnElement.innerText = "إخفاء الأسئلة الشائعة 🔼";
+        }
+    }
+
+    // --- برمجة الشات بوت الذكي ---
+    function toggleChat() {
+        const win = document.getElementById('aiWindow');
+        win.style.display = (win.style.display === 'flex') ? 'none' : 'flex';
+    }
+
+    function sendMessage() {
+        const input = document.getElementById('userInput');
+        const body = document.getElementById('aiBody');
+        if(input.value.trim() === '') return;
+
+        const userDiv = document.createElement('div');
+        userDiv.className = 'msg msg-user';
+        userDiv.innerText = input.value;
+        body.appendChild(userDiv);
+
+        const query = input.value;
+        input.value = '';
+        body.scrollTop = body.scrollHeight;
+
+        setTimeout(() => {
+            const botDiv = document.createElement('div');
+            botDiv.className = 'msg msg-bot';
+            botDiv.innerHTML = 'يسعدنا جداً اهتمامك بـ HIK Dev! يمكنك زيارة <a href="store.html" style="color:#38bdf8; font-weight:bold;">صفحة المتجر والباقات</a> لطلب مشروعك بكل سهولة.';
+            body.appendChild(botDiv);
+            body.scrollTop = body.scrollHeight;
+        }, 600);
+    }
+
+    function handleEnter(e) {
+        if(e.key === 'Enter') sendMessage();
+    }
+
+    // --- أنيميشن الـ 3D التفاعلي ---
     window.addEventListener('DOMContentLoaded', () => {
         const canvas = document.getElementById('hero-canvas');
         if (!canvas) return;
