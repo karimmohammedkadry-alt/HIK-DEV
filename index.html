@@ -18,7 +18,6 @@
 
     <!-- استدعاء مكتبة Three.js لأنيميشن الـ 3D التفاعلي -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-    <script src="script.js" defer></script>
 
     <style>
         .hero-3d-container {
@@ -34,6 +33,7 @@
             height: 100%;
             border-radius: 20px;
             outline: none;
+            display: block;
         }
         /* تصميم احتياطي فوري للوجو في حال لم يفتح مسار الصورة */
         .logo-fallback {
@@ -465,57 +465,61 @@
         });
     };
 
-    // --- أنيميشن الـ 3D التفاعلي ---
-    const canvas = document.getElementById('hero-canvas');
-    const scene = new THREE.Scene();
-    const camera = new THREE.PerspectiveCamera(75, canvas.clientWidth / canvas.clientHeight, 0.1, 1000);
-    const renderer = new THREE.WebGLRenderer({ canvas: canvas, alpha: true, antialias: true });
+    // --- أنيميشن الـ 3D التفاعلي (مع تأكيد التحميل بالكامل) ---
+    window.addEventListener('DOMContentLoaded', () => {
+        const canvas = document.getElementById('hero-canvas');
+        if (!canvas) return;
 
-    renderer.setSize(canvas.clientWidth, canvas.clientHeight);
-    renderer.setPixelRatio(window.devicePixelRatio);
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(75, canvas.clientWidth / canvas.clientHeight, 0.1, 1000);
+        const renderer = new THREE.WebGLRenderer({ canvas: canvas, alpha: true, antialias: true });
 
-    const geometry = new THREE.BoxGeometry(2.2, 2.2, 2.2);
-    const material = new THREE.MeshStandardMaterial({ 
-        color: 0x38bdf8, 
-        wireframe: true,
-        roughness: 0.2,
-        metalness: 0.8
-    });
-    const cube = new THREE.Mesh(geometry, material);
-    scene.add(cube);
+        renderer.setSize(canvas.clientWidth, canvas.clientHeight);
+        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 
-    const ambientLight = new THREE.AmbientLight(0xffffff, 1);
-    scene.add(ambientLight);
+        const geometry = new THREE.BoxGeometry(2.2, 2.2, 2.2);
+        const material = new THREE.MeshStandardMaterial({ 
+            color: 0x38bdf8, 
+            wireframe: true,
+            roughness: 0.2,
+            metalness: 0.8
+        });
+        const cube = new THREE.Mesh(geometry, material);
+        scene.add(cube);
 
-    const pointLight = new THREE.PointLight(0xfbbf24, 2);
-    pointLight.position.set(5, 5, 5);
-    scene.add(pointLight);
+        const ambientLight = new THREE.AmbientLight(0xffffff, 1);
+        scene.add(ambientLight);
 
-    camera.position.z = 5;
+        const pointLight = new THREE.PointLight(0xfbbf24, 2);
+        pointLight.position.set(5, 5, 5);
+        scene.add(pointLight);
 
-    let mouseX = 0;
-    let mouseY = 0;
+        camera.position.z = 5;
 
-    document.addEventListener('mousemove', (event) => {
-        mouseX = (event.clientX / window.innerWidth) - 0.5;
-        mouseY = (event.clientY / window.innerHeight) - 0.5;
-    });
+        let mouseX = 0;
+        let mouseY = 0;
 
-    function animate() {
-        requestAnimationFrame(animate);
-        cube.rotation.x += 0.005 + (mouseY * 0.5);
-        cube.rotation.y += 0.007 + (mouseX * 0.5);
-        renderer.render(scene, camera);
-    }
+        document.addEventListener('mousemove', (event) => {
+            mouseX = (event.clientX / window.innerWidth) - 0.5;
+            mouseY = (event.clientY / window.innerHeight) - 0.5;
+        });
 
-    animate();
+        function animate() {
+            requestAnimationFrame(animate);
+            cube.rotation.x += 0.005 + (mouseY * 0.5);
+            cube.rotation.y += 0.007 + (mouseX * 0.5);
+            renderer.render(scene, camera);
+        }
 
-    window.addEventListener('resize', () => {
-        const width = canvas.parentElement.clientWidth;
-        const height = canvas.parentElement.clientHeight;
-        camera.aspect = width / height;
-        camera.updateProjectionMatrix();
-        renderer.setSize(width, height);
+        animate();
+
+        window.addEventListener('resize', () => {
+            const width = canvas.parentElement.clientWidth;
+            const height = canvas.parentElement.clientHeight;
+            camera.aspect = width / height;
+            camera.updateProjectionMatrix();
+            renderer.setSize(width, height);
+        });
     });
 </script>
 
