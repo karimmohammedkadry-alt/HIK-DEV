@@ -774,3 +774,8 @@ footer hr {
         padding: 60px 20px;
     }
 }
+
+button, a {
+    position: relative;
+    z-index: 10;
+}
