@@ -308,6 +308,11 @@ button.cancel-btn {
     font-weight: 600;
     cursor: pointer;
     margin-top: 8px;
+    transition: background 0.2s;
+}
+
+button.cancel-btn:active {
+    background: #3f3f46;
 }
 
 /* Toast Notification */
@@ -334,7 +339,7 @@ button.cancel-btn {
     opacity: 1;
 }
 
-/* تنسيقات الشات بوت الذكي العائم (في اليمين تحت) */
+/* تنسيقات الشات بوت الذكي العائم */
 #ai-toggle {
     position: fixed;
     bottom: 30px;
@@ -465,13 +470,11 @@ button.cancel-btn {
                     <stop offset="100%" stop-color="#0284c7" />
                 </linearGradient>
             </defs>
-            <!-- Outer Hexagon Frame -->
             <polygon points="100,10 180,55 180,145 100,190 20,145 20,55" 
                      fill="#04060a" 
                      stroke="url(#neonBlue)" 
                      stroke-width="7" 
                      stroke-linejoin="round" />
-            <!-- HIK Text -->
             <text x="50%" y="58%" 
                   font-family="'Plus Jakarta Sans', sans-serif" 
                   font-weight="900" 
@@ -483,8 +486,7 @@ button.cancel-btn {
         </svg>
     </div>
 
-    <!-- أسماء حمزة، إبراهيم، كريم معاً -->
-    <h1>•</span> Karim <span class="divider-dot">•</span> IBRAHIM•</span> Hamza </h1>
+    <h1>Karim <span class="divider-dot">•</span> IBRAHIM <span class="divider-dot">•</span> Hamza</h1>
     <p class="job">Digital Solutions</p>
 
     <!-- Vertical Stack -->
@@ -567,7 +569,7 @@ button.cancel-btn {
             <i class="fa-solid fa-chevron-left" style="color:#25D366"></i>
         </a>
 
-        <button class="cancel-btn" onclick="closeModal('modalWhatsApp')">Cancel</button>
+        <button type="button" class="cancel-btn" onclick="closeModal('modalWhatsApp')">Cancel</button>
     </div>
 </div>
 
@@ -585,7 +587,7 @@ button.cancel-btn {
             <i class="fa-solid fa-chevron-left" style="color:#E1306C"></i>
         </a>
 
-        <button class="cancel-btn" onclick="closeModal('modalInstagram')">Cancel</button>
+        <button type="button" class="cancel-btn" onclick="closeModal('modalInstagram')">Cancel</button>
     </div>
 </div>
 
@@ -611,16 +613,16 @@ button.cancel-btn {
             <i class="fa-solid fa-chevron-left" style="color:#eab308"></i>
         </div>
 
-        <button class="cancel-btn" onclick="closeModal('modalCall')">Cancel</button>
+        <button type="button" class="cancel-btn" onclick="closeModal('modalCall')">Cancel</button>
     </div>
 </div>
 
-<!-- زر الشات بوت العائم (في اليمين تحت) -->
+<!-- زر الشات بوت العائم -->
 <button id="ai-toggle" onclick="toggleChat()">
     <i class="fa-solid fa-comments"></i>
 </button>
 
-<!-- نافذة الشات الذكي (في اليمين تحت) -->
+<!-- نافذة الشات الذكي -->
 <div class="ai-window" id="aiWindow">
     <div class="ai-header">
         <span>مساعد HIK الذكي</span>
@@ -640,8 +642,21 @@ button.cancel-btn {
 function openMyWebsite() { 
     window.location.href = "https://imsaeg2008-lab.github.io/Ik-/"; 
 }
-function openModal(id){ document.getElementById(id).style.display = "flex"; }
-function closeModal(id){ document.getElementById(id).style.display = "none"; }
+
+function openModal(id){ 
+    document.getElementById(id).style.display = "flex"; 
+}
+
+function closeModal(id){ 
+    document.getElementById(id).style.display = "none"; 
+}
+
+/* إغلاق النافذة المنبثقة تلقائياً عند الضغط خارجها */
+window.addEventListener('click', function(event) {
+    if (event.target.classList.contains('modal')) {
+        event.target.style.display = "none";
+    }
+});
 
 /* --- برمجة الشات بوت الذكي --- */
 function toggleChat() {
@@ -679,12 +694,10 @@ function handleEnter(e) {
 function animateLogo2Sec(e) {
     const wrapper = document.getElementById('hikLogoWrapper');
     
-    // إعادة تشغيل أنيميشن الـ 2 ثانية
     wrapper.classList.remove('animate-pop');
     void wrapper.offsetWidth; 
     wrapper.classList.add('animate-pop');
 
-    // إطلاق ألعاب نارية مكثفة جداً من مكان الضغطة
     const rect = wrapper.getBoundingClientRect();
     const x = rect.left + rect.width / 2;
     const y = rect.top + rect.height / 2;
