@@ -242,7 +242,7 @@ h1 span.divider-dot {
     text-transform: uppercase;
 }
 
-/* Modal Sheet */
+/* Modal Sheet متوافق تماماً مع الموبايل */
 .modal {
     position: fixed;
     inset: 0;
@@ -258,8 +258,10 @@ h1 span.divider-dot {
 .sheet {
     width: 100%;
     max-width: 420px;
+    max-height: 85vh; /* حماية لمستويات شاشات الموبايل */
+    overflow-y: auto; /* التمرير التلقائي لضمان الملاءمة */
     background: #101216;
-    padding: 24px;
+    padding: 24px 24px 30px; /* زيادة التباعد السفلي لزر الكنسل */
     border-radius: 28px 28px 0 0;
     animation: up .35s cubic-bezier(0.16, 1, 0.3, 1);
     border-top: 1px solid rgba(56, 189, 248, 0.3);
@@ -302,12 +304,14 @@ button.cancel-btn {
     width: 100%;
     padding: 14px;
     background: #27272a;
-    border: none;
+    border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 16px;
     color: #fff;
-    font-weight: 600;
+    font-weight: 700;
+    font-size: 14px;
     cursor: pointer;
-    margin-top: 8px;
+    margin-top: 12px;
+    display: block;
     transition: background 0.2s;
 }
 
@@ -339,7 +343,7 @@ button.cancel-btn:active {
     opacity: 1;
 }
 
-/* تنسيقات الشات بوت الذكي العائم */
+/* تنسيقات الشات بوت الذكي */
 #ai-toggle {
     position: fixed;
     bottom: 30px;
@@ -597,9 +601,10 @@ button.cancel-btn:active {
         <h2>Call Us</h2>
         <p>Tap to call or copy number</p>
 
+        <!-- تم تغيير المسميات هنا إلى Business 1 و Business 2 -->
         <div class="number" onclick="safeCall('01066517988')">
             <div>
-                <b>Line 1</b><br>
+                <b>Business 1</b><br>
                 <small style="color:#888;">010 665 17988</small>
             </div>
             <i class="fa-solid fa-chevron-left" style="color:#eab308"></i>
@@ -607,7 +612,7 @@ button.cancel-btn:active {
 
         <div class="number" onclick="safeCall('01125093884')">
             <div>
-                <b>Line 2</b><br>
+                <b>Business 2</b><br>
                 <small style="color:#888;">011 250 93884</small>
             </div>
             <i class="fa-solid fa-chevron-left" style="color:#eab308"></i>
@@ -651,7 +656,7 @@ function closeModal(id){
     document.getElementById(id).style.display = "none"; 
 }
 
-/* إغلاق النافذة المنبثقة تلقائياً عند الضغط خارجها */
+/* إغلاق النافذة عند الضغط في أي مكان برة المودال */
 window.addEventListener('click', function(event) {
     if (event.target.classList.contains('modal')) {
         event.target.style.display = "none";
